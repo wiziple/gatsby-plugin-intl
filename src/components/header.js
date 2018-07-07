@@ -1,5 +1,5 @@
 import React from 'react'
-import Link from 'gatsby-link'
+import { Link } from '../i18n'
 import Language from './language'
 
 const Header = ({ siteTitle }) => (
