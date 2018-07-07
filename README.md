@@ -31,7 +31,8 @@ Install this starter (assuming [Gatsby](https://github.com/gatsbyjs/gatsby/) is 
 
 ```sh
 gatsby new gatsby-starter-default-intl https://github.com/wiziple/gatsby-starter-default-intl
-npm install # or yarn install
+cd gatsby-starter-default-intl
+npm install # or yarn
 npm run develop # or gatsby develop
 ```
 
@@ -43,7 +44,7 @@ Alternatively:
 git clone https://github.com/wiziple/gatsby-starter-default-intl gatsby-starter-default-intl # Clone the project
 cd gatsby-starter-default-intl
 rm -rf .git # So you can have your own changes stored in VCS.
-npm install # or yarn install
+npm install # or yarn
 npm run develop # or gatsby develop
 ```
 
