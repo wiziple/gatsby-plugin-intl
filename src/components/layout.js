@@ -8,8 +8,11 @@ const Layout = ({ children, data, intl }) => (
     <Helmet
       title={intl.formatMessage({ id: 'title' })}
       meta={[
-        { name: 'description', content: 'Sample' },
-        { name: 'keywords', content: 'sample, something' },
+        { name: 'description', content: intl.formatMessage({ id: 'welcome' }) },
+        {
+          name: 'keywords',
+          content: 'gatsby, i18n, react-intl, multi language, localization',
+        },
       ]}
     />
     <Header siteTitle={intl.formatMessage({ id: 'title' })} />
