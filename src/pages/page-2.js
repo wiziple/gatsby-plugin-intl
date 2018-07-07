@@ -1,12 +1,20 @@
 import React from 'react'
-import Link from 'gatsby-link'
+import { FormattedMessage } from 'react-intl'
+import { withIntl, Link } from '../i18n'
+import Layout from '../components/layout'
 
 const SecondPage = () => (
-  <div>
-    <h1>Hi from the second page</h1>
-    <p>Welcome to page 2</p>
-    <Link to="/">Go back to the homepage</Link>
-  </div>
+  <Layout>
+    <h1>
+      <FormattedMessage id="hello" />
+    </h1>
+    <p>
+      <FormattedMessage id="welcome2" />
+    </p>
+    <Link to="/">
+      <FormattedMessage id="goback" />
+    </Link>
+  </Layout>
 )
 
-export default SecondPage
+export default withIntl(SecondPage)

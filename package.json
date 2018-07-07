@@ -1,13 +1,16 @@
 {
-  "name": "gatsby-starter-default",
-  "description": "Gatsby default starter",
+  "name": "gatsby-starter-default-intl",
+  "description": "Gatsby default starter with intl",
   "version": "1.0.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Daewoong Moon <wiziple@gmail.com>",
   "dependencies": {
+    "browser-lang": "0.0.1",
     "gatsby": "^1.9.247",
     "gatsby-link": "^1.6.40",
     "gatsby-plugin-react-helmet": "^2.0.10",
-    "react-helmet": "^5.2.0"
+    "intl": "^1.2.5",
+    "react-helmet": "^5.2.0",
+    "react-intl": "^2.4.0"
   },
   "keywords": [
     "gatsby"
@@ -24,6 +27,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    "url": "https://github.com/wiziple/gatsby-starter-default-intl"
   }
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'gatsby-link'
+import Language from './language'
 
 const Header = ({ siteTitle }) => (
   <div
@@ -15,7 +16,7 @@ const Header = ({ siteTitle }) => (
         padding: '1.45rem 1.0875rem',
       }}
     >
-      <h1 style={{ margin: 0 }}>
+      <h1 style={{ margin: 0, display: 'inline-block' }}>
         <Link
           to="/"
           style={{
@@ -26,6 +27,9 @@ const Header = ({ siteTitle }) => (
           {siteTitle}
         </Link>
       </h1>
+      <div style={{ float: 'right' }}>
+        <Language />
+      </div>
     </div>
   </div>
 )
