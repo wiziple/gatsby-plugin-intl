@@ -1,32 +1,43 @@
-import React from 'react'
-import Helmet from 'react-helmet'
-import { injectIntl } from 'react-intl'
-import Header from './header'
+/**
+ * Layout component that queries for data
+ * with Gatsby's StaticQuery component
+ *
+ * See: https://www.gatsbyjs.org/docs/static-query/
+ */
 
-const Layout = ({ children, data, intl }) => (
-  <div>
-    <Helmet
-      title={intl.formatMessage({ id: 'title' })}
-      meta={[
-        { name: 'description', content: intl.formatMessage({ id: 'welcome' }) },
-        {
-          name: 'keywords',
-          content: 'gatsby, i18n, react-intl, multi language, localization',
-        },
-      ]}
-    />
-    <Header siteTitle={intl.formatMessage({ id: 'title' })} />
+import React from "react"
+import PropTypes from "prop-types"
+import { injectIntl } from "react-intl"
+
+import Header from "./header"
+import "./layout.css"
+
+const Layout = ({ children, intl }) => (
+  <>
+    <Header siteTitle={intl.formatMessage({ id: "title" })} />
     <div
       style={{
-        margin: '0 auto',
+        margin: `0 auto`,
         maxWidth: 960,
-        padding: '0px 1.0875rem 1.45rem',
+        padding: `0px 1.0875rem 1.45rem`,
         paddingTop: 0,
       }}
     >
-      {children}
+      <main>{children}</main>
+      <footer>
+        <a href="https://github.com/wiziple/gatsby-starter-default-intl">
+          Source
+        </a>
+        <br />© {new Date().getFullYear()}, Built with
+        {` `}
+        <a href="https://www.gatsbyjs.org">Gatsby</a>
+      </footer>
     </div>
-  </div>
+  </>
 )
+
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
+}
 
 export default injectIntl(Layout)

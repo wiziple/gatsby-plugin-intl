@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from "react"
+import PropTypes from "prop-types"
 
 class Language extends Component {
   static contextTypes = {
@@ -7,7 +7,7 @@ class Language extends Component {
   }
 
   state = {
-    value: '',
+    value: "",
   }
 
   componentDidMount() {
@@ -27,7 +27,7 @@ class Language extends Component {
     }
 
     this.setState({ value }, () => {
-      localStorage.setItem('language', value)
+      localStorage.setItem("language", value)
       window.location.href = `/${value}${originalPath}`
     })
   }
