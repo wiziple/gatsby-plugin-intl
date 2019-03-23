@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { IntlProvider, addLocaleData } from 'react-intl'
-import { localeData } from './locales'
+import React, { Component } from "react"
+import PropTypes from "prop-types"
+import { IntlProvider, addLocaleData, injectIntl } from "react-intl"
+import { localeData } from "./locales"
 
 addLocaleData(localeData)
 
@@ -13,7 +13,7 @@ export default ComposedComponent => {
 
     constructor(props) {
       super()
-      const { pathContext: pageContext } = props
+      const { pageContext } = props
       const { locale, languages, originalPath } = pageContext
 
       this.state = {
@@ -34,12 +34,12 @@ export default ComposedComponent => {
 
     render() {
       const { language } = this.state
-      const locale = language.locale || 'en'
+      const locale = language.locale || "en"
       const messages = require(`./locales/${locale}.js`) // eslint-disable-line
-
+      const IntlComponent = injectIntl(ComposedComponent)
       return (
         <IntlProvider locale={locale} messages={messages}>
-          <ComposedComponent {...this.props} />
+          <IntlComponent {...this.props} />
         </IntlProvider>
       )
     }
