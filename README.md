@@ -18,7 +18,7 @@ When you build multilingual sites, Google recommends using different URLs for ea
 
 Demo: [http://gatsby-starter-default-intl.netlify.com](http://gatsby-starter-default-intl.netlify.com)
 
-Source: [https://github.com/wiziple/gatsby-starter-default-intl](https://github.com/wiziple/gatsby-starter-default-intl)
+Source: [https://github.com/wiziple/gatsby-plugin-intl/tree/master/examples/gatsby-starter-default-intl](https://github.com/wiziple/gatsby-plugin-intl/tree/master/examples/gatsby-starter-default-intl)
 
 ## How to use
 
@@ -50,11 +50,13 @@ plugins: [
 ### You'll also need to add language JSON resources to the project.
 
 For example,
-language resource file | language
--- | --
-[src/intl/en.json](https://github.com/wiziple/gatsby-starter-default-intl/blob/master/src/intl/en.json) | English
-[src/intl/ko.json](https://github.com/wiziple/gatsby-starter-default-intl/blob/master/src/intl/ko.json) | Korean
-[src/intl/de.json](https://github.com/wiziple/gatsby-starter-default-intl/blob/master/src/intl/de.json) | German
+
+| language resource file | language |
+| --- | --- |
+| [src/intl/en.json](https://github.com/wiziple/gatsby-plugin-intl/blob/master/examples/gatsby-starter-default-intl/src/intl/en.json) | English |
+| [src/intl/ko.json](https://github.com/wiziple/gatsby-plugin-intl/blob/master/examples/gatsby-starter-default-intl/src/intl/ko.json) | Korean |
+| [src/intl/de.json](https://github.com/wiziple/gatsby-plugin-intl/blob/master/examples/gatsby-starter-default-intl/src/intl/de.json) | German |
+
 
 ### Change your page component
 
