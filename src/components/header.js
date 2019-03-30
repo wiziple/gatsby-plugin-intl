@@ -1,7 +1,7 @@
 import { Link } from "gatsby-plugin-intl"
 import PropTypes from "prop-types"
 import React from "react"
-import Language from "./Language"
+import Language from "./language"
 
 const Header = ({ siteTitle }) => (
   <header
