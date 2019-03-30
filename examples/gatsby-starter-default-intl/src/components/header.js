@@ -1,7 +1,7 @@
+import { Link } from "gatsby-plugin-intl"
 import PropTypes from "prop-types"
 import React from "react"
-import { Link } from "../i18n"
-import Language from "./language"
+import Language from "./Language"
 
 const Header = ({ siteTitle }) => (
   <header
@@ -28,7 +28,11 @@ const Header = ({ siteTitle }) => (
           {siteTitle}
         </Link>
       </h1>
-      <div style={{ float: "right" }}>
+      <div
+        style={{
+          float: `right`,
+        }}
+      >
         <Language />
       </div>
     </div>
