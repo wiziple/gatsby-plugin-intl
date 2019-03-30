@@ -1,24 +1,23 @@
 {
-  "name": "gatsby-starter-default-intl",
-  "description": "Gatsby default starter with intl",
-  "version": "2.0.0",
-  "author": "Daewoong Moon <wiziple@gmail.com>",
+  "name": "gatsby-starter-default",
+  "private": true,
+  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "version": "0.1.0",
+  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
-    "browser-lang": "^0.0.1",
-    "gatsby": "^2.2.3",
-    "gatsby-image": "^2.0.34",
-    "gatsby-plugin-manifest": "^2.0.24",
+    "gatsby": "^2.3.3",
+    "gatsby-image": "^2.0.35",
+    "gatsby-plugin-intl": "^0.1.0",
+    "gatsby-plugin-manifest": "^2.0.25",
     "gatsby-plugin-offline": "^2.0.25",
-    "gatsby-plugin-react-helmet": "^3.0.10",
-    "gatsby-plugin-sharp": "^2.0.30",
-    "gatsby-source-filesystem": "^2.0.27",
+    "gatsby-plugin-react-helmet": "^3.0.11",
+    "gatsby-plugin-sharp": "^2.0.32",
+    "gatsby-source-filesystem": "^2.0.28",
     "gatsby-transformer-sharp": "^2.1.17",
-    "intl": "^1.2.5",
     "prop-types": "^15.7.2",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
-    "react-helmet": "^5.2.0",
-    "react-intl": "^2.4.0"
+    "react": "^16.8.5",
+    "react-dom": "^16.8.5",
+    "react-helmet": "^5.2.0"
   },
   "devDependencies": {
     "prettier": "^1.16.4"
@@ -37,9 +36,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default-intl"
+    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
   },
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default-intl/issues"
+    "url": "https://github.com/gatsbyjs/gatsby/issues"
   }
 }

@@ -1,0 +1,15 @@
+{
+  "title": "Gatsby Deutsch",
+  "description": "Starten Sie Ihr nächstes, tolles Gatsby-Projekt mit diesem default-starter-intl. Dieser Barebones-Starter wird mit den wichtigsten Gatsby-Konfigurationsdateien geliefert, die Sie möglicherweise benötigen.",
+  "author": "@wiziple",
+  "hello": "hallo Leute",
+  "welcome": "Willkommen auf Ihrer neuen Gatsby-Site.",
+  "title_page2": "Seite zwei",
+  "hello_page2": "Hallo von der zweiten Seite",
+  "go_page2": "Gehen Sie zu Seite 2",
+  "build": "Jetzt mach etwas Großartiges.",
+  "welcome_page2": "Willkommen auf Seite 2",
+  "go_back": "Gehe zurück zur Startseite",
+  "notfound": "Nicht gefunden",
+  "notfound_p": "Sie haben gerade eine Route erreicht, die nicht existiert... die Traurigkeit."
+}

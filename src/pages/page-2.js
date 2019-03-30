@@ -1,7 +1,5 @@
 import React from "react"
-import { FormattedMessage } from "react-intl"
-
-import { withIntl, Link } from "../i18n"
+import { FormattedMessage, withIntl, Link } from "gatsby-plugin-intl"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -10,13 +8,13 @@ const SecondPage = ({ intl }) => (
   <Layout>
     <SEO title={intl.formatMessage({ id: "title_page2" })} />
     <h1>
-      <FormattedMessage id="title_page2" />
+      <FormattedMessage id="hello_page2" />
     </h1>
     <p>
-      <FormattedMessage id="welcome2" />
+      <FormattedMessage id="welcome_page2" />
     </p>
     <Link to="/">
-      <FormattedMessage id="goback" />
+      <FormattedMessage id="go_back" />
     </Link>
   </Layout>
 )

@@ -1,56 +1,35 @@
-import React, { Component } from "react"
-import PropTypes from "prop-types"
+import React from "react"
+import { IntlContextConsumer, Link } from "gatsby-plugin-intl"
 
-class Language extends Component {
-  static contextTypes = {
-    language: PropTypes.object,
-  }
+const languageName = {
+  en: "English",
+  ko: "한국어",
+  de: "Deutsch",
+}
 
-  state = {
-    value: "",
-  }
-
-  componentDidMount() {
-    const { language } = this.context
-    this.setState({
-      value: language.locale || language.detected,
-    })
-  }
-
-  handleChange = event => {
-    const { language } = this.context
-    const { originalPath } = language
-    const { value } = event.target
-
-    if (value === this.state.value) {
-      return
-    }
-
-    this.setState({ value }, () => {
-      localStorage.setItem("language", value)
-      window.location.href = `/${value}${originalPath}`
-    })
-  }
-
-  render() {
-    const { language } = this.context
-    const { languages } = language
-    const { value } = this.state
-
-    if (!value) {
-      return null
-    }
-
-    return (
-      <select value={value} onChange={this.handleChange}>
-        {languages.map(({ value, text }) => (
-          <option key={value} value={value}>
-            {text}
-          </option>
-        ))}
-      </select>
-    )
-  }
+const Language = () => {
+  return (
+    <div>
+      <IntlContextConsumer>
+        {({ languages, originalPath }) =>
+          languages.map(language => (
+            <Link
+              key={language}
+              language={language}
+              to={originalPath}
+              style={{
+                color: `white`,
+                margin: 10,
+                textDecoration: `underline`,
+              }}
+            >
+              {languageName[language]}
+            </Link>
+          ))
+        }
+      </IntlContextConsumer>
+    </div>
+  )
 }
 
 export default Language
