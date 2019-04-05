@@ -4,13 +4,13 @@ Internationalize your Gatsby site.
 
 ## Features
 
-- Out of box internationalization-framework powered by [react-intl](https://github.com/yahoo/react-intl). 
+- Turn your gatsby site into an internationalization-framework out of the box powered by [react-intl](https://github.com/yahoo/react-intl). 
 
 - Support automatic redirection based on the user's preferred language in browser provided by [browser-lang](https://github.com/wiziple/browser-lang).
 
 - Support multi-language url routes in a single page component. This means you don't have to create separate pages such as `pages/en/index.js` or `pages/ko/index.js`.
 
-## Inspiration
+## Why?
 
 When you build multilingual sites, Google recommends using different URLs for each language version of a page rather than using cookies or browser settings to adjust the content language on the page. [(read more)](https://support.google.com/webmasters/answer/182192?hl=en&ref_topic=2370587)
 
@@ -19,6 +19,11 @@ When you build multilingual sites, Google recommends using different URLs for ea
 Demo: [http://gatsby-starter-default-intl.netlify.com](http://gatsby-starter-default-intl.netlify.com)
 
 Source: [https://github.com/wiziple/gatsby-plugin-intl/tree/master/examples/gatsby-starter-default-intl](https://github.com/wiziple/gatsby-plugin-intl/tree/master/examples/gatsby-starter-default-intl)
+
+
+## Showcase
+
+[https://picpick.app](https://picpick.app)
 
 ## How to use
 
@@ -82,7 +87,6 @@ export default withIntl(IndexPage)
 
 ## How It Works
 
-
 Let's say you have two pages (`index.js` and `page-2.js`) in your `pages` directory. The plugin will create static pages for every language.
 
 file | English | Korean | German | Default*
@@ -90,7 +94,21 @@ file | English | Korean | German | Default*
 src/pages/index.js | /**en** | /**ko** | /**de** | /
 src/pages/page-2.js | /**en**/page-2 | /**ko**/page-2 | /**de**/page-2 | /page-2
 
-_* If redirect option is `true`, `/` or `/page-2` will be redirected to the user's preferred language router. e.g) `/ko` or `/ko/page-2`. Otherwise, the pages will render `defaultLangugage` language._
+### *Default Pages and Redirection
+
+If redirect option is `true`, `/` or `/page-2` will be redirected to the user's preferred language router. e.g) `/ko` or `/ko/page-2`. Otherwise, the pages will render `defaultLangugage` language. You can also specify additional component to be rendered on redirection page by adding `redirectComponent` option.
+
+
+## Plugin Options
+
+Option | Type | Description
+-- | -- | --
+path | string | language JSON resource path
+languages | string[] | supported language keys
+defaultLanguage | string | default language when visiting `/page` instead of `ko/page`
+redirect | boolean | if the value is `true`, `/` or `/page-2` will be redirected to the user's preferred language router. e.g) `/ko` or `/ko/page-2`. Otherwise, the pages will render `defaultLangugage` language.
+redirectComponent | string (Optional) | additional component file path to be rendered on with a redirection component for SEO.
+
 
 ## Components
 

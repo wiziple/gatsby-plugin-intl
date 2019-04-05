@@ -1,3 +1,14 @@
+exports.onCreateWebpackConfig = ({ actions, plugins }, pluginOptions) => {
+  const { redirectComponent = null } = pluginOptions
+  actions.setWebpackConfig({
+    plugins: [
+      plugins.define({
+        GATSBY_INTL_REDIRECT_COMPONENT_PATH: JSON.stringify(redirectComponent),
+      }),
+    ],
+  })
+}
+
 exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
   const { createPage, deletePage } = actions
   const {
