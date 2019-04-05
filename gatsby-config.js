@@ -34,6 +34,7 @@ module.exports = {
         languages: [`en`, `ko`, `de`],
         defaultLanguage: `ko`,
         redirect: true,
+        redirectComponent: require.resolve(`./src/components/redirect.js`),
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
