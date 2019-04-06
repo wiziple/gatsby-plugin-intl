@@ -1,5 +1,5 @@
 import React from "react"
-import { FormattedMessage, withIntl, Link } from "gatsby-plugin-intl"
+import { FormattedMessage, injectIntl, navigate } from "gatsby-plugin-intl"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -13,10 +13,16 @@ const SecondPage = ({ intl }) => (
     <p>
       <FormattedMessage id="welcome_page2" />
     </p>
-    <Link to="/">
-      <FormattedMessage id="go_back" />
-    </Link>
+    <a
+      href="#"
+      onClick={e => {
+        e.preventDefault()
+        navigate("/")
+      }}
+    >
+      {intl.formatMessage({ id: "go_back" })}
+    </a>
   </Layout>
 )
 
-export default withIntl(SecondPage)
+export default injectIntl(SecondPage)

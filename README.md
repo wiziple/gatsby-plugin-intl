@@ -25,6 +25,8 @@ Source: [https://github.com/wiziple/gatsby-plugin-intl/tree/master/examples/gats
 
 [https://picpick.app](https://picpick.app)
 
+*Feel free to send us PR to add your project.*
+
 ## How to use
 
 ### Install package
@@ -67,7 +69,7 @@ For example,
 
 ```jsx
 import React from "react"
-import { withIntl, Link, FormattedMessage } from "gatsby-plugin-intl"
+import { injectIntl, Link, FormattedMessage } from "gatsby-plugin-intl"
 
 const IndexPage = ({ intl }) => {
   return (
@@ -82,7 +84,7 @@ const IndexPage = ({ intl }) => {
     </Layout>
   )
 }
-export default withIntl(IndexPage)
+export default injectIntl(IndexPage)
 ```
 
 ## How It Works
@@ -94,7 +96,7 @@ file | English | Korean | German | Default*
 src/pages/index.js | /**en** | /**ko** | /**de** | /
 src/pages/page-2.js | /**en**/page-2 | /**ko**/page-2 | /**de**/page-2 | /page-2
 
-### *Default Pages and Redirection
+**Default Pages and Redirection**
 
 If redirect option is `true`, `/` or `/page-2` will be redirected to the user's preferred language router. e.g) `/ko` or `/ko/page-2`. Otherwise, the pages will render `defaultLangugage` language. You can also specify additional component to be rendered on redirection page by adding `redirectComponent` option.
 
@@ -118,10 +120,9 @@ To use it, simply import it from `gatsby-plugin-intl`.
 
 Component | Type | Description
 -- | -- | --
-withIntl | component | A higher-order component for pages.
 Link | component | This is a wrapper around @gatsby’s Link component that adds useful enhancements for multi-language routes. All props are passed through to @gatsby’s Link component.
 navigate | function | This is a wrapper around @gatsby’s navigate function that adds useful enhancements for multi-language routes. All options are passed through to @gatsby’s navigate function.
-changeLocale | function | A function that replace your locale. `changeLocale(locale, to)`
+changeLocale | function | A function that replaces your locale. `changeLocale(locale, to = null)`
 IntlContextConsumer | component | A context component to get plugin configuration on the component level.
 injectIntl | component | https://github.com/yahoo/react-intl/wiki/API#injection-api
 FormattedMessage | component | https://github.com/yahoo/react-intl/wiki/Components#string-formatting-components
