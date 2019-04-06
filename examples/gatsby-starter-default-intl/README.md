@@ -4,7 +4,7 @@ The default Gatsby starter using `gatsby-plugin-intl` for i18n.
 
 ## Features
 
-- Out of box internationalization-framework powered by [react-intl](https://github.com/yahoo/react-intl). 
+- Turn your gatsby site into an internationalization-framework out of the box powered by [react-intl](https://github.com/yahoo/react-intl). 
 
 - Support automatic redirection based on the user's preferred language in browser provided by [browser-lang](https://github.com/wiziple/browser-lang).
 

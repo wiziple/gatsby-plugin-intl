@@ -1,5 +1,5 @@
 import React from "react"
-import { IntlContextConsumer, Link } from "gatsby-plugin-intl"
+import { IntlContextConsumer, changeLocale } from "gatsby-plugin-intl"
 
 const languageName = {
   en: "English",
@@ -11,20 +11,20 @@ const Language = () => {
   return (
     <div>
       <IntlContextConsumer>
-        {({ languages, originalPath }) =>
+        {({ languages }) =>
           languages.map(language => (
-            <Link
+            <a
               key={language}
-              language={language}
-              to={originalPath}
+              onClick={() => changeLocale(language)}
               style={{
                 color: `white`,
                 margin: 10,
                 textDecoration: `underline`,
+                cursor: `pointer`,
               }}
             >
               {languageName[language]}
-            </Link>
+            </a>
           ))
         }
       </IntlContextConsumer>

@@ -116,14 +116,16 @@ To make it easy to handle i18n with multi-language url routes, the plugin provid
 
 To use it, simply import it from `gatsby-plugin-intl`.
 
-Component | Description
--- | --
-withIntl | A higher-order component for pages.
-Link | This is a wrapper around @gatsby’s Link component that adds useful enhancements for multi-language routes. All props are passed through to @gatsby’s Link component.
-IntlContextConsumer | A context component to get plugin configuration on the component level.
-injectIntl | https://github.com/yahoo/react-intl/wiki/API#injection-api
-FormattedMessage | https://github.com/yahoo/react-intl/wiki/Components#string-formatting-components
-...and more | https://github.com/yahoo/react-intl/wiki/Components
+Component | Type | Description
+-- | -- | --
+withIntl | component | A higher-order component for pages.
+Link | component | This is a wrapper around @gatsby’s Link component that adds useful enhancements for multi-language routes. All props are passed through to @gatsby’s Link component.
+navigate | function | This is a wrapper around @gatsby’s navigate function that adds useful enhancements for multi-language routes. All options are passed through to @gatsby’s navigate function.
+changeLocale | function | A function that replace your locale. `changeLocale(locale, to)`
+IntlContextConsumer | component | A context component to get plugin configuration on the component level.
+injectIntl | component | https://github.com/yahoo/react-intl/wiki/API#injection-api
+FormattedMessage | component | https://github.com/yahoo/react-intl/wiki/Components#string-formatting-components
+and more... | | https://github.com/yahoo/react-intl/wiki/Components
 
 
 ## License

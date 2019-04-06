@@ -58,6 +58,7 @@ export default WrappedComponent => {
       }
     }
 
+    window.___gatsbyIntl = intl
     addLocaleDataForGatsby(language)
     return (
       <IntlProvider locale={language} messages={messages}>
