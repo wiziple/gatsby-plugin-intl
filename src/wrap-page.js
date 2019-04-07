@@ -48,16 +48,16 @@ export default ({ element, props }) => {
 
     // Skip build, Browsers only
     if (typeof window !== "undefined") {
-      let saved = window.localStorage.getItem("gatsby-intl-language")
-      if (!languages.includes(saved)) {
-        saved = language
-      }
       let detected =
-        saved ||
+        window.localStorage.getItem("gatsby-intl-language") ||
         browserLang({
           languages,
           fallback: language,
         })
+
+        if (!languages.includes(detected)) {
+          detected = language
+        }
 
       const newUrl = withPrefix(`/${detected}${pathname}`)
       window.localStorage.setItem("gatsby-intl-language", detected)

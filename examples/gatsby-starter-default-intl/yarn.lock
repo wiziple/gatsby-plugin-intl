@@ -4573,10 +4573,10 @@ gatsby-link@^2.0.16:
     "@types/reach__router" "^1.0.0"
     prop-types "^15.6.1"
 
-gatsby-plugin-intl@^0.1.6:
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-intl/-/gatsby-plugin-intl-0.1.6.tgz#f54be9f118626542f1844bda00e78aaa70984caf"
-  integrity sha512-j5J4+8nk8xqNbNFQRGnGyKL6uG+ykf6L/RRWkcsIq5sqRuhpfIfXg5qxs/kafRfNA895jDrfI1pu+sOu1/Jydw==
+gatsby-plugin-intl@^0.1.7:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-intl/-/gatsby-plugin-intl-0.1.7.tgz#8a685bac5444e6a8208de8ad58aa72e64306b331"
+  integrity sha512-CiErE6R+wvrS1RUYLP01SLq4xfuGnRFZydU22GXCC/YpC2JdIyu9bQElF1Cf1Ql753w4luXDY+Hma2TBaYGj9A==
   dependencies:
     "@babel/runtime" "^7.4.3"
     browser-lang "^0.0.1"
