@@ -65,7 +65,9 @@ For example,
 | [src/intl/de.json](https://github.com/wiziple/gatsby-plugin-intl/blob/master/examples/gatsby-starter-default-intl/src/intl/de.json) | German |
 
 
-### Change your page component
+### Change your components
+
+You can use `injectIntl` HOC on any react components including page components.
 
 ```jsx
 import React from "react"
