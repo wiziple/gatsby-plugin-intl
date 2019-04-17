@@ -23,7 +23,8 @@ Source: [https://github.com/wiziple/gatsby-plugin-intl/tree/master/examples/gats
 
 ## Showcase
 
-[https://picpick.app](https://picpick.app)
+- [https://picpick.app](https://picpick.app)
+- [https://www.krashna.nl](https://www.krashna.nl)
 
 *Feel free to send us PR to add your project.*
 
