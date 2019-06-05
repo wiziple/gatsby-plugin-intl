@@ -11,8 +11,7 @@
     "browser-lang": "^0.0.1",
     "intl": "^1.2.5",
     "react": "^16.8.6",
-    "react-intl": "^2.9.0",
-    "webpack": "^4.33.0"
+    "react-intl": "^2.9.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
