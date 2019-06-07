@@ -1863,12 +1863,10 @@ brorand@^1.0.1:
   resolved "https://registry.yarnpkg.com/brorand/-/brorand-1.1.0.tgz#12c25efe40a45e3c323eb8675a0a0ce57b22371f"
   integrity sha1-EsJe/kCkXjwyPrhnWgoM5XsiNx8=
 
-browser-lang@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/browser-lang/-/browser-lang-0.0.1.tgz#9cccc756a562fb7f271b87d3b2740f468c4d9b92"
-  integrity sha512-ozdbsXd3q/7gUb98LzM80Y1Y/GRzy9GMucBdT92KRoWLjICxCpJU7RJgqFm+dRXWW8hxTGgnLfb9M4QSrcq5gw==
-  dependencies:
-    lodash "^4.17.10"
+browser-lang@^0.1.0-beta.0:
+  version "0.1.0-beta.0"
+  resolved "https://registry.yarnpkg.com/browser-lang/-/browser-lang-0.1.0-beta.0.tgz#dc285e0a8f6c2d1a2ef875dcd7be659aef5da038"
+  integrity sha512-KPtPfILHhMJL32OkRglEw9v41/en1dq/BtfJk5lqfuDftJ1nwgkhHXAo0QvgIHnPHsziLAT2Xlxk1nqyDm6edQ==
 
 browserify-aes@^1.0.0, browserify-aes@^1.0.4:
   version "1.2.0"
@@ -4646,13 +4644,13 @@ gatsby-link@^2.1.1:
     "@types/reach__router" "^1.0.0"
     prop-types "^15.6.1"
 
-gatsby-plugin-intl@^0.2.0-beta.1:
-  version "0.2.0-beta.1"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-intl/-/gatsby-plugin-intl-0.2.0-beta.1.tgz#8bd36f3b005b1745ea407e0826cb017630069116"
-  integrity sha512-S2Z+vViQdW4GvaHtMM7IOEZmo8cd0gfOMFi6Ul60Q6ndXu6/T75T4GtHsAY1Lkj7ovxFN/PlM/Bbk8MRGPossQ==
+gatsby-plugin-intl@^0.2.0-beta.3:
+  version "0.2.0-beta.3"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-intl/-/gatsby-plugin-intl-0.2.0-beta.3.tgz#b6edbd325754d3f3b5ea0b493448cb944825fa2d"
+  integrity sha512-kMl9aKe/rc1OhbAMelL+8LgkugDMRdUbRZETk32mFT3dbL0asCRdRd+M4LuFrlavIqq1nfgDkcOuAfhld9ZHnA==
   dependencies:
     "@babel/runtime" "^7.4.5"
-    browser-lang "^0.0.1"
+    browser-lang "^0.1.0-beta.0"
     intl "^1.2.5"
     react "^16.8.6"
     react-intl "^2.9.0"
