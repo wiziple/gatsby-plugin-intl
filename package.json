@@ -1,14 +1,14 @@
 {
   "name": "gatsby-plugin-intl",
   "description": "Gatsby plugin to add react-intl onto a site",
-  "version": "0.2.0-beta.3",
+  "version": "0.2.0",
   "author": "Daewoong Moon <wiziple@gmail.com>",
   "bugs": {
     "url": "https://github.com/wiziple/gatsby-plugin-intl"
   },
   "dependencies": {
     "@babel/runtime": "^7.4.5",
-    "browser-lang": "^0.1.0-beta.0",
+    "browser-lang": "^0.1.0",
     "intl": "^1.2.5",
     "react": "^16.8.6",
     "react-intl": "^2.9.0"
