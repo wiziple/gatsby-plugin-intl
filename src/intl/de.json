@@ -10,6 +10,8 @@
   "build": "Jetzt mach etwas Großartiges.",
   "welcome_page2": "Willkommen auf Seite 2",
   "go_back": "Gehe zurück zur Startseite",
-  "notfound": "Nicht gefunden",
-  "notfound_p": "Sie haben gerade eine Route erreicht, die nicht existiert... die Traurigkeit."
+  "notfound": {
+    "header": "Nicht gefunden",
+    "description": "Sie haben gerade eine Route erreicht, die nicht existiert... die Traurigkeit."
+  }
 }

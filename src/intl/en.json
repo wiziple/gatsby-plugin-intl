@@ -10,6 +10,8 @@
   "build": "Now go build something great.",
   "welcome_page2": "Welcome to page 2",
   "go_back": "Go back to the homepage",
-  "notfound": "NOT FOUND",
-  "notfound_p": "You just hit a route that doesn't exist... the sadness."
+  "notfound": {
+    "header": "NOT FOUND",
+    "description": "You just hit a route that doesn't exist... the sadness."
+  }
 }
