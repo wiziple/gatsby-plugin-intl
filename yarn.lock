@@ -945,12 +945,10 @@ braces@^2.3.1, braces@^2.3.2:
     split-string "^3.0.2"
     to-regex "^3.0.1"
 
-browser-lang@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/browser-lang/-/browser-lang-0.0.1.tgz#9cccc756a562fb7f271b87d3b2740f468c4d9b92"
-  integrity sha512-ozdbsXd3q/7gUb98LzM80Y1Y/GRzy9GMucBdT92KRoWLjICxCpJU7RJgqFm+dRXWW8hxTGgnLfb9M4QSrcq5gw==
-  dependencies:
-    lodash "^4.17.10"
+browser-lang@^0.1.0-beta.0:
+  version "0.1.0-beta.0"
+  resolved "https://registry.yarnpkg.com/browser-lang/-/browser-lang-0.1.0-beta.0.tgz#dc285e0a8f6c2d1a2ef875dcd7be659aef5da038"
+  integrity sha512-KPtPfILHhMJL32OkRglEw9v41/en1dq/BtfJk5lqfuDftJ1nwgkhHXAo0QvgIHnPHsziLAT2Xlxk1nqyDm6edQ==
 
 browserslist@^4.4.2, browserslist@^4.5.1:
   version "4.5.2"
