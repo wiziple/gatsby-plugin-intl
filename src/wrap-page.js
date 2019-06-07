@@ -17,13 +17,8 @@ const getLocaleData = locale => {
 }
 
 const addLocaleDataForGatsby = language => {
-  let localeData = null
-  localeData = getLocaleData(language)
-
-  if (!localeData && language.length > 2) {
-    const locale = language.substring(0, 2)
-    localeData = getLocaleData(locale)
-  }
+  const locale = language.split('-')[0]
+  const localeData = getLocaleData(locale)
 
   if (!localeData) {
     throw new Error(`Cannot find react-intl/locale-data/${language}`)

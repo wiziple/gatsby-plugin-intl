@@ -2,7 +2,7 @@ const webpack = require('webpack')
 
 exports.onCreateWebpackConfig = ({ actions, plugins }, pluginOptions) => {
   const { redirectComponent = null, languages } = pluginOptions
-  const regex = new RegExp(languages.join('|'))
+  const regex = new RegExp(languages.map(l => l.split('-')[0]).join('|'))
   actions.setWebpackConfig({
     plugins: [
       plugins.define({
