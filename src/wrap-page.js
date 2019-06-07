@@ -17,19 +17,29 @@ const getLocaleData = locale => {
 }
 
 const addLocaleDataForGatsby = language => {
-  let localeData = null
-  localeData = getLocaleData(language)
-
-  if (!localeData && language.length > 2) {
-    const locale = language.substring(0, 2)
-    localeData = getLocaleData(locale)
-  }
+  const locale = language.split('-')[0]
+  const localeData = getLocaleData(locale)
 
   if (!localeData) {
     throw new Error(`Cannot find react-intl/locale-data/${language}`)
   }
 
   addLocaleData(...localeData)
+}
+
+function flattenMessages(nestedMessages, prefix = "") {
+  return Object.keys(nestedMessages).reduce((messages, key) => {
+    let value = nestedMessages[key]
+    let prefixedKey = prefix ? `${prefix}.${key}` : key
+
+    if (typeof value === "string") {
+      messages[prefixedKey] = value
+    } else {
+      Object.assign(messages, flattenMessages(value, prefixedKey))
+    }
+
+    return messages
+  }, {})
 }
 
 export default ({ element, props }) => {
@@ -55,9 +65,9 @@ export default ({ element, props }) => {
           fallback: language,
         })
 
-        if (!languages.includes(detected)) {
-          detected = language
-        }
+      if (!languages.includes(detected)) {
+        detected = language
+      }
 
       const newUrl = withPrefix(`/${detected}${pathname}`)
       window.localStorage.setItem("gatsby-intl-language", detected)
@@ -71,7 +81,7 @@ export default ({ element, props }) => {
 
   addLocaleDataForGatsby(language)
   return (
-    <IntlProvider locale={language} messages={messages}>
+    <IntlProvider locale={language} messages={flattenMessages(messages)}>
       <IntlContextProvider value={intl}>
         {isRedirect
           ? GATSBY_INTL_REDIRECT_COMPONENT_PATH &&
