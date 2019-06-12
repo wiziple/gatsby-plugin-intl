@@ -68,8 +68,9 @@ export default ({ element, props }) => {
       if (!languages.includes(detected)) {
         detected = language
       }
-
-      const newUrl = withPrefix(`/${detected}${pathname}`)
+      
+      const queryParams = props.location.search || "";
+      const newUrl = withPrefix(`/${detected}${pathname}${queryParams}`)
       window.localStorage.setItem("gatsby-intl-language", detected)
       window.location.replace(newUrl)
     }
