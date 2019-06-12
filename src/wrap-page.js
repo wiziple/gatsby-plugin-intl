@@ -50,30 +50,24 @@ export default ({ element, props }) => {
   const { intl } = props.pageContext
   const { language, languages, messages, redirect, routed } = intl
 
-  /* eslint-disable no-undef */
   const isRedirect = redirect && !routed
 
-  if (isRedirect) {
-    const { pathname } = props.location
+  if (isRedirect && typeof window !== "undefined") {
+    let detected =
+      window.localStorage.getItem("gatsby-intl-language") ||
+      browserLang({
+        languages,
+        fallback: language,
+      })
 
-    // Skip build, Browsers only
-    if (typeof window !== "undefined") {
-      let detected =
-        window.localStorage.getItem("gatsby-intl-language") ||
-        browserLang({
-          languages,
-          fallback: language,
-        })
-
-      if (!languages.includes(detected)) {
-        detected = language
-      }
-
-      const queryParams = props.location.search || ""
-      const newUrl = withPrefix(`/${detected}${pathname}${queryParams}`)
-      window.localStorage.setItem("gatsby-intl-language", detected)
-      window.location.replace(newUrl)
+    if (!languages.includes(detected)) {
+      detected = language
     }
+    const { pathname, search } = props.location
+    const queryParams = search || ""
+    const newUrl = withPrefix(`/${detected}${pathname}${queryParams}`)
+    window.localStorage.setItem("gatsby-intl-language", detected)
+    window.location.replace(newUrl)
   }
 
   if (typeof window !== "undefined") {
