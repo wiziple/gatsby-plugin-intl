@@ -4644,15 +4644,14 @@ gatsby-link@^2.1.1:
     "@types/reach__router" "^1.0.0"
     prop-types "^15.6.1"
 
-gatsby-plugin-intl@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-intl/-/gatsby-plugin-intl-0.2.1.tgz#6c6e42acd76458119534ff141be123e40b383ecf"
-  integrity sha512-kXhE7FFemrjXCIk8Uc1dcnFzXU50zP0CnLVT0x5WgWRGy3nBCEdri4vfnwcqFeK23RRvhPuJ0/FspvnXehNLjA==
+gatsby-plugin-intl@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-intl/-/gatsby-plugin-intl-0.2.4.tgz#6e86c3df9ee39c1e49d931a70843bcc730b6333f"
+  integrity sha512-+K+y8p92RzSZ8dl0bT5LpUrkPknUQj7l6cc1Y/cGqr0t7Vs616xbgV0/NKabcfd4EnN0tbIp1iIlPWvCujm2Kg==
   dependencies:
     "@babel/runtime" "^7.4.5"
     browser-lang "^0.1.0"
     intl "^1.2.5"
-    react "^16.8.6"
     react-intl "^2.9.0"
 
 gatsby-plugin-manifest@^2.1.1:
@@ -4782,7 +4781,7 @@ gatsby-transformer-sharp@^2.1.21:
     semver "^5.6.0"
     sharp "^0.22.1"
 
-gatsby@^2.8.4:
+gatsby@2.8.4:
   version "2.8.4"
   resolved "https://registry.yarnpkg.com/gatsby/-/gatsby-2.8.4.tgz#485e45e938c5ddd21b8439bbb7946d225b76b6cf"
   integrity sha512-vy4MLOl1JfZ1XCttOznHpZW9tMOquRzsNGsXB2JO/2cCTIeoACb0PiiqTpoNvBteNTizCzxRFmsWsZXJj9d9rQ==
