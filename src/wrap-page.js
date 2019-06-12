@@ -17,7 +17,7 @@ const getLocaleData = locale => {
 }
 
 const addLocaleDataForGatsby = language => {
-  const locale = language.split('-')[0]
+  const locale = language.split("-")[0]
   const localeData = getLocaleData(locale)
 
   if (!localeData) {
@@ -68,8 +68,8 @@ export default ({ element, props }) => {
       if (!languages.includes(detected)) {
         detected = language
       }
-      
-      const queryParams = props.location.search || "";
+
+      const queryParams = props.location.search || ""
       const newUrl = withPrefix(`/${detected}${pathname}${queryParams}`)
       window.localStorage.setItem("gatsby-intl-language", detected)
       window.location.replace(newUrl)

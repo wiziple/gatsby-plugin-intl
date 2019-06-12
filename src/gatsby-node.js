@@ -1,14 +1,17 @@
-const webpack = require('webpack')
+const webpack = require("webpack")
 
 exports.onCreateWebpackConfig = ({ actions, plugins }, pluginOptions) => {
   const { redirectComponent = null, languages } = pluginOptions
-  const regex = new RegExp(languages.map(l => l.split('-')[0]).join('|'))
+  const regex = new RegExp(languages.map(l => l.split("-")[0]).join("|"))
   actions.setWebpackConfig({
     plugins: [
       plugins.define({
         GATSBY_INTL_REDIRECT_COMPONENT_PATH: JSON.stringify(redirectComponent),
       }),
-      new webpack.ContextReplacementPlugin(/react-intl[/\\]locale-data$/, regex),
+      new webpack.ContextReplacementPlugin(
+        /react-intl[/\\]locale-data$/,
+        regex
+      ),
     ],
   })
 }
