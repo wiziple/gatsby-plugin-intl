@@ -13,7 +13,7 @@ import { injectIntl } from "gatsby-plugin-intl"
 import Header from "./header"
 import "./layout.css"
 
-const Layout = ({ children, intl }) => (
+const Layout = ({ children, intl, pageContext }) => (
   <StaticQuery
     query={graphql`
       query SiteTitleQuery {
@@ -26,7 +26,10 @@ const Layout = ({ children, intl }) => (
     `}
     render={data => (
       <>
-        <Header siteTitle={intl.formatMessage({ id: "title" })} />
+        <Header
+          siteTitle={intl.formatMessage({ id: "title" })}
+          htmlAttributes={{ lang: pageContext.intl.language }}
+        />
         <div
           style={{
             margin: `0 auto`,
@@ -45,10 +48,11 @@ const Layout = ({ children, intl }) => (
       </>
     )}
   />
-)
+);
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-}
+  pageContext: PropTypes.object.isRequired
+};
 
 export default injectIntl(Layout)
