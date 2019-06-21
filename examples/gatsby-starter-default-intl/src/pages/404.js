@@ -6,7 +6,10 @@ import SEO from "../components/seo"
 
 const NotFoundPage = ({ intl }) => (
   <Layout>
-    <SEO title={`404: ${intl.formatMessage({ id: "title" })}`} />
+    <SEO
+      lang={intl.locale}
+      title={`404: ${intl.formatMessage({ id: "title" })}`}
+    />
     <h1>
       <FormattedMessage id="notfound.header" />
     </h1>
