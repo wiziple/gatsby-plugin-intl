@@ -8,6 +8,7 @@ const IndexPage = ({ intl }) => {
   return (
     <Layout>
       <SEO
+        lang={intl.locale}
         title={intl.formatMessage({ id: "title" })}
         keywords={[`gatsby`, `application`, `react`]}
       />
