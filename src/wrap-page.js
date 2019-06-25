@@ -27,21 +27,6 @@ const addLocaleDataForGatsby = language => {
   addLocaleData(...localeData)
 }
 
-function flattenMessages(nestedMessages, prefix = "") {
-  return Object.keys(nestedMessages).reduce((messages, key) => {
-    let value = nestedMessages[key]
-    let prefixedKey = prefix ? `${prefix}.${key}` : key
-
-    if (typeof value === "string") {
-      messages[prefixedKey] = value
-    } else {
-      Object.assign(messages, flattenMessages(value, prefixedKey))
-    }
-
-    return messages
-  }, {})
-}
-
 export default ({ element, props }) => {
   if (!props) {
     return
@@ -82,7 +67,7 @@ export default ({ element, props }) => {
 
   addLocaleDataForGatsby(language)
   return (
-    <IntlProvider locale={language} messages={flattenMessages(messages)}>
+    <IntlProvider locale={language} messages={messages}>
       <IntlContextProvider value={intl}>
         {isRedirect
           ? GATSBY_INTL_REDIRECT_COMPONENT_PATH &&
