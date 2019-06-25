@@ -44,7 +44,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     try {
       // TODO load yaml here
       const messages = require(`${path}/${language}.json`)
-      // 
+      //
       return flattenMessages(messages)
     } catch (err) {
       return {}
@@ -52,7 +52,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
   }
 
   const generatePage = (routed, language) => {
-    const messages = getMessages(path, language);
+    const messages = getMessages(path, language)
     return {
       ...page,
       path: routed ? `/${language}${page.path}` : page.path,
