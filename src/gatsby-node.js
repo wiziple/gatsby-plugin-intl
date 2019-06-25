@@ -1,7 +1,10 @@
 const webpack = require("webpack")
 
 exports.onCreateWebpackConfig = ({ actions, plugins }, pluginOptions) => {
-  const { redirectComponent = null, languages } = pluginOptions
+  const { redirectComponent = null, languages, defaultLanguage } = pluginOptions
+  if (!languages.includes(defaultLanguage)) {
+    languages.push(defaultLanguage);
+  }
   const regex = new RegExp(languages.map(l => l.split("-")[0]).join("|"))
   actions.setWebpackConfig({
     plugins: [
