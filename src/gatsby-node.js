@@ -41,6 +41,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     languages = ["en"],
     defaultLanguage = "en",
     redirect = false,
+    generate404 = true,
   } = pluginOptions
 
   const getMessages = (path, language) => {
@@ -79,7 +80,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
 
   languages.forEach(language => {
     const localePage = generatePage(true, language)
-    if (localePage.path.includes(`/404/`)) {
+    if (generate404 && localePage.path.includes(`/404/`)) {
       localePage.matchPath = `/${language}/*`
     }
     createPage(localePage)
