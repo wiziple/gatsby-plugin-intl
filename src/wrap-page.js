@@ -27,27 +27,38 @@ const addLocaleDataForGatsby = language => {
   addLocaleData(...localeData)
 }
 
+const withIntlProvider = intl => children => {
+  addLocaleDataForGatsby(intl.language)
+  return (
+    <IntlProvider locale={intl.language} messages={intl.messages}>
+      <IntlContextProvider value={intl}>{children}</IntlContextProvider>
+    </IntlProvider>
+  )
+}
+
 export default ({ element, props }) => {
   if (!props) {
     return
   }
 
-  const { intl } = props.pageContext
+  const { pageContext, location } = props
+  const { intl } = pageContext
   const {
     language,
     languages,
-    messages,
     redirect,
     routed,
-    originalPath,
-    redirectOn404,
+    allSitePage,
   } = intl
 
+  if (typeof window !== "undefined") {
+    window.___gatsbyIntl = intl
+  }
   /* eslint-disable no-undef */
   const isRedirect = redirect && !routed
 
   if (isRedirect) {
-    const { pathname, search } = props.location
+    const { pathname, search } = location
 
     // Skip build, Browsers only
     if (typeof window !== "undefined") {
@@ -66,30 +77,19 @@ export default ({ element, props }) => {
       const newUrl = withPrefix(`/${detected}${pathname}${queryParams}`)
       window.localStorage.setItem("gatsby-intl-language", detected)
 
-      const is404 = originalPath.includes(`404`)
-      if (is404 && redirectOn404) {
-        window.location.replace(withPrefix(`/${detected}/404`))
-      } else {
+      if (allSitePage.includes(newUrl)) {
         window.location.replace(newUrl)
+      } else {
+        // TODO: better 404 handler instead of redirect
+        window.location.replace(withPrefix(`/${detected}/404`))
       }
     }
   }
-
-  if (typeof window !== "undefined") {
-    window.___gatsbyIntl = intl
-  }
-
-  addLocaleDataForGatsby(language)
-  return (
-    <IntlProvider locale={language} messages={messages}>
-      <IntlContextProvider value={intl}>
-        {isRedirect
-          ? GATSBY_INTL_REDIRECT_COMPONENT_PATH &&
-            React.createElement(
-              preferDefault(require(GATSBY_INTL_REDIRECT_COMPONENT_PATH))
-            )
-          : element}
-      </IntlContextProvider>
-    </IntlProvider>
-  )
+  const renderElement = isRedirect
+    ? GATSBY_INTL_REDIRECT_COMPONENT_PATH &&
+      React.createElement(
+        preferDefault(require(GATSBY_INTL_REDIRECT_COMPONENT_PATH))
+      )
+    : element
+  return withIntlProvider(intl)(renderElement)
 }

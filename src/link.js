@@ -53,9 +53,9 @@ export const changeLocale = (language, to) => {
   if (typeof window === "undefined") {
     return
   }
+  const { routed, allSitePage } = window.___gatsbyIntl
 
   const removeLocalePart = pathname => {
-    const { routed } = window.___gatsbyIntl
     if (!routed) {
       return pathname
     }
@@ -67,5 +67,10 @@ export const changeLocale = (language, to) => {
   // TODO: check slash
   const link = `/${language}${pathname}${window.location.search}`
   localStorage.setItem("gatsby-intl-language", language)
-  gatsbyNavigate(link)
+
+  if (allSitePage.includes(link)) {
+    gatsbyNavigate(link)
+  } else {
+    gatsbyNavigate(`/${language}/`)
+  }
 }

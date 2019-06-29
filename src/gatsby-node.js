@@ -34,6 +34,8 @@ exports.onCreateWebpackConfig = ({ actions, plugins }, pluginOptions) => {
   })
 }
 
+const allSitePage = []
+
 exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
   const { createPage, deletePage } = actions
   const {
@@ -41,7 +43,6 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     languages = ["en"],
     defaultLanguage = "en",
     redirect = false,
-    redirectOn404 = true, // temporary fix for gatsby@>=2.9.0
   } = pluginOptions
 
   const getMessages = (path, language) => {
@@ -57,9 +58,11 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
 
   const generatePage = (routed, language) => {
     const messages = getMessages(path, language)
+    const newPath = routed ? `/${language}${page.path}` : page.path
+    allSitePage.push(newPath)
     return {
       ...page,
-      path: routed ? `/${language}${page.path}` : page.path,
+      path: newPath,
       context: {
         ...page.context,
         intl: {
@@ -69,7 +72,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
           routed,
           originalPath: page.path,
           redirect,
-          redirectOn404,
+          allSitePage,
         },
       },
     }
@@ -81,13 +84,6 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
 
   languages.forEach(language => {
     const localePage = generatePage(true, language)
-    if (localePage.path.includes(`/404/`)) {
-      if (!redirectOn404) {
-        localePage.matchPath = `/${language}/*`
-        createPage(localePage)
-      }
-    } else {
-      createPage(localePage)
-    }
+    createPage(localePage)
   })
 }
