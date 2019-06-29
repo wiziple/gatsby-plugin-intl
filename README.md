@@ -112,7 +112,7 @@ path | string | language JSON resource path
 languages | string[] | supported language keys
 defaultLanguage | string | default language when visiting `/page` instead of `ko/page`
 redirect | boolean | if the value is `true`, `/` or `/page-2` will be redirected to the user's preferred language router. e.g) `/ko` or `/ko/page-2`. Otherwise, the pages will render `defaultLangugage` language.
-redirectComponent | string (Optional) | additional component file path to be rendered on with a redirection component for SEO.
+redirectComponent | string (optional) | additional component file path to be rendered on with a redirection component for SEO.
 
 
 ## Components

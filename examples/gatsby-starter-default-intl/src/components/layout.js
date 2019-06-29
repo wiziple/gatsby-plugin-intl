@@ -49,6 +49,7 @@ const Layout = ({ children, intl }) => (
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
+  intl: PropTypes.object.isRequired,
 }
 
 export default injectIntl(Layout)

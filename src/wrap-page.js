@@ -27,28 +27,21 @@ const addLocaleDataForGatsby = language => {
   addLocaleData(...localeData)
 }
 
-function flattenMessages(nestedMessages, prefix = "") {
-  return Object.keys(nestedMessages).reduce((messages, key) => {
-    let value = nestedMessages[key]
-    let prefixedKey = prefix ? `${prefix}.${key}` : key
-
-    if (typeof value === "string") {
-      messages[prefixedKey] = value
-    } else {
-      Object.assign(messages, flattenMessages(value, prefixedKey))
-    }
-
-    return messages
-  }, {})
-}
-
 export default ({ element, props }) => {
   if (!props) {
     return
   }
 
   const { intl } = props.pageContext
-  const { language, languages, messages, redirect, routed } = intl
+  const {
+    language,
+    languages,
+    messages,
+    redirect,
+    routed,
+    originalPath,
+    redirectOn404,
+  } = intl
 
   /* eslint-disable no-undef */
   const isRedirect = redirect && !routed
@@ -72,7 +65,13 @@ export default ({ element, props }) => {
       const queryParams = search || ""
       const newUrl = withPrefix(`/${detected}${pathname}${queryParams}`)
       window.localStorage.setItem("gatsby-intl-language", detected)
-      window.location.replace(newUrl)
+
+      const is404 = originalPath.includes(`404`)
+      if (is404 && redirectOn404) {
+        window.location.replace(withPrefix(`/${detected}/404`))
+      } else {
+        window.location.replace(newUrl)
+      }
     }
   }
 
@@ -82,7 +81,7 @@ export default ({ element, props }) => {
 
   addLocaleDataForGatsby(language)
   return (
-    <IntlProvider locale={language} messages={flattenMessages(messages)}>
+    <IntlProvider locale={language} messages={messages}>
       <IntlContextProvider value={intl}>
         {isRedirect
           ? GATSBY_INTL_REDIRECT_COMPONENT_PATH &&
