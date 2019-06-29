@@ -50,8 +50,6 @@ plugins: [
       defaultLanguage: `ko`,
       // option to redirect to `/ko` when connecting `/`
       redirect: true,
-      // option to generate language-specific 404 pages
-      generate404: true,
     },
   },
 ]
@@ -114,8 +112,7 @@ path | string | language JSON resource path
 languages | string[] | supported language keys
 defaultLanguage | string | default language when visiting `/page` instead of `ko/page`
 redirect | boolean | if the value is `true`, `/` or `/page-2` will be redirected to the user's preferred language router. e.g) `/ko` or `/ko/page-2`. Otherwise, the pages will render `defaultLangugage` language.
-redirectComponent | string (Optional) | additional component file path to be rendered on with a redirection component for SEO.
-generate404 | boolean | If the value is true, language-specific 404 pages will be handled. For example, `/ko/missing-page` will show a Korean 404 page if this value is set to true. When this value is set to false, `/ko/missing-page` will show a 404 page in the default language.
+redirectComponent | string (optional) | additional component file path to be rendered on with a redirection component for SEO.
 
 
 ## Components

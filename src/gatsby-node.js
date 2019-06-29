@@ -18,7 +18,7 @@ function flattenMessages(nestedMessages, prefix = "") {
 exports.onCreateWebpackConfig = ({ actions, plugins }, pluginOptions) => {
   const { redirectComponent = null, languages, defaultLanguage } = pluginOptions
   if (!languages.includes(defaultLanguage)) {
-    languages.push(defaultLanguage);
+    languages.push(defaultLanguage)
   }
   const regex = new RegExp(languages.map(l => l.split("-")[0]).join("|"))
   actions.setWebpackConfig({
@@ -41,7 +41,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     languages = ["en"],
     defaultLanguage = "en",
     redirect = false,
-    generate404 = true,
+    redirectOn404 = true, // temporary fix for gatsby@>=2.9.0
   } = pluginOptions
 
   const getMessages = (path, language) => {
@@ -69,6 +69,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
           routed,
           originalPath: page.path,
           redirect,
+          redirectOn404,
         },
       },
     }
@@ -80,9 +81,13 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
 
   languages.forEach(language => {
     const localePage = generatePage(true, language)
-    if (generate404 && localePage.path.includes(`/404/`)) {
-      localePage.matchPath = `/${language}/*`
+    if (localePage.path.includes(`/404/`)) {
+      if (!redirectOn404) {
+        localePage.matchPath = `/${language}/*`
+        createPage(localePage)
+      }
+    } else {
+      createPage(localePage)
     }
-    createPage(localePage)
   })
 }

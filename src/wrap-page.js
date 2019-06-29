@@ -33,7 +33,15 @@ export default ({ element, props }) => {
   }
 
   const { intl } = props.pageContext
-  const { language, languages, messages, redirect, routed } = intl
+  const {
+    language,
+    languages,
+    messages,
+    redirect,
+    routed,
+    originalPath,
+    redirectOn404,
+  } = intl
 
   /* eslint-disable no-undef */
   const isRedirect = redirect && !routed
@@ -57,7 +65,13 @@ export default ({ element, props }) => {
       const queryParams = search || ""
       const newUrl = withPrefix(`/${detected}${pathname}${queryParams}`)
       window.localStorage.setItem("gatsby-intl-language", detected)
-      window.location.replace(newUrl)
+
+      const is404 = originalPath.includes(`404`)
+      if (is404 && redirectOn404) {
+        window.location.replace(withPrefix(`/${detected}/404`))
+      } else {
+        window.location.replace(newUrl)
+      }
     }
   }
 
