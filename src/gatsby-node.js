@@ -37,6 +37,10 @@ exports.onCreateWebpackConfig = ({ actions, plugins }, pluginOptions) => {
 const allSitePage = []
 
 exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
+  //Exit if the page has already been processed.
+  if (typeof page.context.intl === "object") {
+    return
+  }
   const { createPage, deletePage } = actions
   const {
     path = ".",
