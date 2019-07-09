@@ -43,13 +43,7 @@ export default ({ element, props }) => {
 
   const { pageContext, location } = props
   const { intl } = pageContext
-  const {
-    language,
-    languages,
-    redirect,
-    routed,
-    allSitePage,
-  } = intl
+  const { language, languages, redirect, routed, allSitePage } = intl
 
   if (typeof window !== "undefined") {
     window.___gatsbyIntl = intl
