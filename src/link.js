@@ -49,6 +49,12 @@ export const navigate = (to, options) => {
   gatsbyNavigate(link, options)
 }
 
+const stripTrailingSlash = (str) => {
+  return str.endsWith('/') ?
+      str.slice(0, -1) :
+      str;
+};
+
 export const changeLocale = (language, to) => {
   if (typeof window === "undefined") {
     return
@@ -67,8 +73,10 @@ export const changeLocale = (language, to) => {
   // TODO: check slash
   const link = `/${language}${pathname}${window.location.search}`
   localStorage.setItem("gatsby-intl-language", language)
+  
+  const linkWithSlash = link.endsWith("/") ? link : `${link}/`
 
-  if (allSitePage.includes(link)) {
+  if (allSitePage.includes(linkWithSlash)) {
     gatsbyNavigate(link)
   } else {
     gatsbyNavigate(`/${language}/`)
