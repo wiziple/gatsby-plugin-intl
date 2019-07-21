@@ -64,11 +64,14 @@ export const changeLocale = (language, to) => {
   }
 
   const pathname = to || removeLocalePart(window.location.pathname)
-  // TODO: check slash
+
   const link = `/${language}${pathname}${window.location.search}`
   localStorage.setItem("gatsby-intl-language", language)
 
-  if (allSitePage.includes(link)) {
+  if (
+    allSitePage.includes(`/${language}${pathname}`) ||
+    allSitePage.includes(`/${language}${pathname}/`)
+  ) {
     gatsbyNavigate(link)
   } else {
     gatsbyNavigate(`/${language}/`)
