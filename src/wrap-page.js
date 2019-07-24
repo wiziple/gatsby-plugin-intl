@@ -27,6 +27,15 @@ const addLocaleDataForGatsby = language => {
   addLocaleData(...localeData)
 }
 
+const pageIsIncludedInSite = (allSitePage, regexp) => {
+  return allSitePage.some(page => {
+    if (regexp.test(page)) {
+      return true
+    }
+    return false
+  })
+}
+
 const withIntlProvider = intl => children => {
   addLocaleDataForGatsby(intl.language)
   return (
@@ -43,13 +52,7 @@ export default ({ element, props }) => {
 
   const { pageContext, location } = props
   const { intl } = pageContext
-  const {
-    language,
-    languages,
-    redirect,
-    routed,
-    allSitePage,
-  } = intl
+  const { language, languages, redirect, routed, allSitePage } = intl
 
   if (typeof window !== "undefined") {
     window.___gatsbyIntl = intl
@@ -77,7 +80,20 @@ export default ({ element, props }) => {
       const newUrl = withPrefix(`/${detected}${pathname}${queryParams}`)
       window.localStorage.setItem("gatsby-intl-language", detected)
 
-      if (allSitePage.includes(newUrl)) {
+      // regex => /\/en\/signup\/?$/
+
+      let urlWithoutTrailingSlash = newUrl
+      let urlRegExp
+
+      if (newUrl.endsWith("/")) {
+        urlWithoutTrailingSlash = newUrl.substr(0, newUrl.length - 1)
+      }
+
+      urlWithoutTrailingSlash += "/?$"
+
+      urlRegExp = new RegExp(urlWithoutTrailingSlash)
+
+      if (pageIsIncludedInSite(allSitePage, urlRegExp)) {
         window.location.replace(newUrl)
       } else {
         // TODO: better 404 handler instead of redirect
