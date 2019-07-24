@@ -1,5 +1,5 @@
 {
-  "name": "gatsby-plugin-intl",
+  "name": "@talensjr/gatsby-plugin-intl",
   "description": "Gatsby plugin to add react-intl onto a site",
   "version": "0.2.6",
   "author": "Daewoong Moon <wiziple@gmail.com>",
