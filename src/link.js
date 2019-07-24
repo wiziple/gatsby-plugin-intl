@@ -68,7 +68,9 @@ export const changeLocale = (language, to) => {
   const link = `/${language}${pathname}${window.location.search}`
   localStorage.setItem("gatsby-intl-language", language)
 
-  if (allSitePage.includes(link)) {
+  const linkWithSlash = link.endsWith("/") ? link : `${link}/`
+
+  if (allSitePage.includes(linkWithSlash)) {
     gatsbyNavigate(link)
   } else {
     gatsbyNavigate(`/${language}/`)
