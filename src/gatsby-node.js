@@ -37,6 +37,9 @@ exports.onCreateWebpackConfig = ({ actions, plugins }, pluginOptions) => {
 const allSitePage = []
 
 exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
+  if (page.context.intl) {
+    return;
+  }
   const { createPage, deletePage } = actions
   const {
     path = ".",
