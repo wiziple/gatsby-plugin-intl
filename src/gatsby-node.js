@@ -34,9 +34,11 @@ exports.onCreateWebpackConfig = ({ actions, plugins }, pluginOptions) => {
   })
 }
 
-const allSitePage = []
-
 exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
+  //Exit if the page has already been processed.
+  if (typeof page.context.intl === "object") {
+    return
+  }
   const { createPage, deletePage } = actions
   const {
     path = ".",
@@ -59,7 +61,6 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
   const generatePage = (routed, language) => {
     const messages = getMessages(path, language)
     const newPath = routed ? `/${language}${page.path}` : page.path
-    allSitePage.push(newPath)
     return {
       ...page,
       path: newPath,
@@ -72,7 +73,6 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
           routed,
           originalPath: page.path,
           redirect,
-          allSitePage,
         },
       },
     }
@@ -84,6 +84,9 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
 
   languages.forEach(language => {
     const localePage = generatePage(true, language)
+    if (localePage.path.includes(`/404/`)) {
+      localePage.matchPath = `/${language}/*`
+    }
     createPage(localePage)
   })
 }
