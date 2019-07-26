@@ -52,7 +52,7 @@ export default ({ element, props }) => {
 
   const { pageContext, location } = props
   const { intl } = pageContext
-  const { language, languages, redirect, routed, allSitePage } = intl
+  const { language, languages, redirect, routed } = intl
 
   if (typeof window !== "undefined") {
     window.___gatsbyIntl = intl
@@ -79,26 +79,7 @@ export default ({ element, props }) => {
       const queryParams = search || ""
       const newUrl = withPrefix(`/${detected}${pathname}${queryParams}`)
       window.localStorage.setItem("gatsby-intl-language", detected)
-
-      // regex => /\/en\/signup\/?$/
-
-      let urlWithoutTrailingSlash = newUrl
-      let urlRegExp
-
-      if (newUrl.endsWith("/")) {
-        urlWithoutTrailingSlash = newUrl.substr(0, newUrl.length - 1)
-      }
-
-      urlWithoutTrailingSlash += "/?$"
-
-      urlRegExp = new RegExp(urlWithoutTrailingSlash)
-
-      if (pageIsIncludedInSite(allSitePage, urlRegExp)) {
-        window.location.replace(newUrl)
-      } else {
-        // TODO: better 404 handler instead of redirect
-        window.location.replace(withPrefix(`/${detected}/404`))
-      }
+      window.location.replace(newUrl)
     }
   }
   const renderElement = isRedirect
