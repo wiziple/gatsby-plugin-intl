@@ -27,15 +27,6 @@ const addLocaleDataForGatsby = language => {
   addLocaleData(...localeData)
 }
 
-const pageIsIncludedInSite = (allSitePage, regexp) => {
-  return allSitePage.some(page => {
-    if (regexp.test(page)) {
-      return true
-    }
-    return false
-  })
-}
-
 const withIntlProvider = intl => children => {
   addLocaleDataForGatsby(intl.language)
   return (

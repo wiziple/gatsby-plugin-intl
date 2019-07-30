@@ -1,5 +1,5 @@
 {
-  "name": "@talensjr/gatsby-plugin-intl",
+  "name": "gatsby-plugin-intl",
   "description": "Gatsby plugin to add react-intl onto a site",
   "version": "0.2.7",
   "author": "Daewoong Moon <wiziple@gmail.com>",
@@ -19,7 +19,7 @@
     "prettier": "^1.18.2",
     "rimraf": "^2.6.3"
   },
-  "homepage": "https://github.com/talensjr/gatsby-plugin-intl",
+  "homepage": "https://github.com/wiziple/gatsby-plugin-intl",
   "keywords": [
     "gatsby",
     "gatsby-plugin",
