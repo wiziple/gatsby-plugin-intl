@@ -43,7 +43,7 @@ export default ({ element, props }) => {
 
   const { pageContext, location } = props
   const { intl } = pageContext
-  const { language, languages, redirect, routed } = intl
+  const { language, languages, redirect, routed, originalPath } = intl
 
   if (typeof window !== "undefined") {
     window.___gatsbyIntl = intl
@@ -52,7 +52,7 @@ export default ({ element, props }) => {
   const isRedirect = redirect && !routed
 
   if (isRedirect) {
-    const { pathname, search } = location
+    const { search } = location
 
     // Skip build, Browsers only
     if (typeof window !== "undefined") {
@@ -68,7 +68,7 @@ export default ({ element, props }) => {
       }
 
       const queryParams = search || ""
-      const newUrl = withPrefix(`/${detected}${pathname}${queryParams}`)
+      const newUrl = withPrefix(`/${detected}${originalPath}${queryParams}`)
       window.localStorage.setItem("gatsby-intl-language", detected)
       window.location.replace(newUrl)
     }
