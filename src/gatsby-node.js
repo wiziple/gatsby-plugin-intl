@@ -84,7 +84,8 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
 
   languages.forEach(language => {
     const localePage = generatePage(true, language)
-    if (localePage.path.includes(`/404/`)) {
+    const regexp = new RegExp("/404/?$")
+    if (regexp.test(localePage.path)) {
       localePage.matchPath = `/${language}/*`
     }
     createPage(localePage)
