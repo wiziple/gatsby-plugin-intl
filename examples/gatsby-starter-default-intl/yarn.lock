@@ -4956,10 +4956,10 @@ gatsby-page-utils@^0.0.5:
     micromatch "^3.1.10"
     slash "^1.0.0"
 
-gatsby-plugin-intl@^0.2.7:
-  version "0.2.7"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-intl/-/gatsby-plugin-intl-0.2.7.tgz#69e49cd09c3ed29f2d78b1e2c0d7ea6e197cf154"
-  integrity sha512-vbX6bM58gAidX+bDk1EczfQdrHgqEEhGrDDOymR+943HSZWKpnzAZwOaZAsFt2UjI2zvVYDdkzC5MmQDPlmabA==
+gatsby-plugin-intl@^0.2.8:
+  version "0.2.8"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-intl/-/gatsby-plugin-intl-0.2.8.tgz#d6393c77475e28c64a048416ff4bb389a0410292"
+  integrity sha512-m2fK8hKk0b0u7mRbz0DSik6qWvtYiKVm/wtabHOrl/g0vuytqWqqdRcaBAowUhhM5k9R8y/NrcsbNu9GiDJnKA==
   dependencies:
     "@babel/runtime" "^7.4.5"
     browser-lang "^0.1.0"
