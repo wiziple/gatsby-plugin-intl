@@ -54,7 +54,12 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
 
       return flattenMessages(messages)
     } catch (error) {
-      console.error(`[gatsby-plugin-intl] error`, error)
+      if (error.code === "MODULE_NOT_FOUND") {
+        process.env.NODE_ENV !== "test" &&
+          console.error(
+            `[gatsby-plugin-intl] couldn't find file "${path}/${language}.json"`
+          )
+      }
 
       throw error
     }
