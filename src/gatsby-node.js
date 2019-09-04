@@ -51,10 +51,12 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     try {
       // TODO load yaml here
       const messages = require(`${path}/${language}.json`)
-      //
+
       return flattenMessages(messages)
-    } catch (err) {
-      return {}
+    } catch (error) {
+      console.error(`[gatsby-plugin-intl] error`, error)
+
+      throw error
     }
   }
 
