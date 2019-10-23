@@ -33,9 +33,7 @@
   "license": "MIT",
   "main": "index.js",
   "peerDependencies": {
-    "gatsby": "^2.0.0",
-    "react": "^16.11.0",
-    "webpack": "^4.41.2"
+    "gatsby": "^2.0.0"
   },
   "repository": "https://github.com/wiziple/gatsby-plugin-intl",
   "scripts": {
