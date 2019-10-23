@@ -10,7 +10,7 @@
     "@babel/runtime": "^7.4.5",
     "browser-lang": "^0.1.0",
     "intl": "^1.2.5",
-    "react-intl": "^2.9.0"
+    "react-intl": "^3.4.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
@@ -31,7 +31,9 @@
   "license": "MIT",
   "main": "index.js",
   "peerDependencies": {
-    "gatsby": "^2.0.0"
+    "gatsby": "^2.0.0",
+    "react": "^16.11.0",
+    "webpack": "^4.41.2"
   },
   "repository": "https://github.com/wiziple/gatsby-plugin-intl",
   "scripts": {

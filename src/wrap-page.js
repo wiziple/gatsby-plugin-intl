@@ -1,34 +1,34 @@
 import React from "react"
 import browserLang from "browser-lang"
 import { withPrefix } from "gatsby"
-import { IntlProvider, addLocaleData } from "react-intl"
+import { IntlProvider } from "react-intl"
 import { IntlContextProvider } from "./intl-context"
 
 const preferDefault = m => (m && m.default) || m
 
-const getLocaleData = locale => {
-  try {
-    const localeData = require(`react-intl/locale-data/${locale}`)
-
-    return localeData
-  } catch (e) {
-    return false
-  }
-}
-
-const addLocaleDataForGatsby = language => {
-  const locale = language.split("-")[0]
-  const localeData = getLocaleData(locale)
-
-  if (!localeData) {
-    throw new Error(`Cannot find react-intl/locale-data/${language}`)
-  }
-
-  addLocaleData(...localeData)
-}
-
+// const getLocaleData = locale => {
+//   try {
+//     const localeData = require(`react-intl/locale-data/${locale}`)
+//
+//     return localeData
+//   } catch (e) {
+//     return false
+//   }
+// }
+//
+// const addLocaleDataForGatsby = language => {
+//   const locale = language.split("-")[0]
+//   const localeData = getLocaleData(locale)
+//
+//   if (!localeData) {
+//     throw new Error(`Cannot find react-intl/locale-data/${language}`)
+//   }
+//
+//   addLocaleData(...localeData)
+// }
+//
 const withIntlProvider = intl => children => {
-  addLocaleDataForGatsby(intl.language)
+  // addLocaleDataForGatsby(intl.language)
   return (
     <IntlProvider locale={intl.language} messages={intl.messages}>
       <IntlContextProvider value={intl}>{children}</IntlContextProvider>
