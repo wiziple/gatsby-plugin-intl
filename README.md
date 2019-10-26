@@ -89,6 +89,28 @@ const IndexPage = ({ intl }) => {
 }
 export default injectIntl(IndexPage)
 ```
+Or you can use the new `useIntl` hook.
+```jsx
+import React from "react"
+import { useIntl, Link, FormattedMessage } from "gatsby-plugin-intl"
+
+const IndexPage = () => {
+  const intl = useIntl()
+  return (
+    <Layout>
+      <SEO
+        title={intl.formatMessage({ id: "title" })}
+      />
+      <Link to="/page-2/">
+        {intl.formatMessage({ id: "go_page2" })}
+        {/* OR <FormattedMessage id="go_page2" /> */}
+      </Link>
+    </Layout>
+  )
+}
+export default IndexPage
+```
+
 
 ## How It Works
 

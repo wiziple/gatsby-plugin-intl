@@ -51,10 +51,17 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     try {
       // TODO load yaml here
       const messages = require(`${path}/${language}.json`)
-      //
+
       return flattenMessages(messages)
-    } catch (err) {
-      return {}
+    } catch (error) {
+      if (error.code === "MODULE_NOT_FOUND") {
+        process.env.NODE_ENV !== "test" &&
+          console.error(
+            `[gatsby-plugin-intl] couldn't find file "${path}/${language}.json"`
+          )
+      }
+
+      throw error
     }
   }
 
