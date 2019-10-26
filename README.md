@@ -108,7 +108,7 @@ const IndexPage = () => {
     </Layout>
   )
 }
-export default injectIntl(IndexPage)
+export default IndexPage
 ```
 
 
