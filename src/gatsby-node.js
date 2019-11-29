@@ -27,7 +27,11 @@ exports.onCreateWebpackConfig = ({ actions, plugins }, pluginOptions) => {
         GATSBY_INTL_REDIRECT_COMPONENT_PATH: JSON.stringify(redirectComponent),
       }),
       new webpack.ContextReplacementPlugin(
-        /react-intl[/\\]locale-data$/,
+        /@formatjs[/\\]intl-relativetimeformat[/\\]dist[/\\]locale-data$/,
+        regex
+      ),
+      new webpack.ContextReplacementPlugin(
+        /@formatjs[/\\]intl-pluralrules[/\\]dist[/\\]locale-data$/,
         regex
       ),
     ],
