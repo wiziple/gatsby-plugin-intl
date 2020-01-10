@@ -1,4 +1,5 @@
 const webpack = require("webpack")
+const { createJson, makeQuery } = require("./handle")
 
 function flattenMessages(nestedMessages, prefix = "") {
   return Object.keys(nestedMessages).reduce((messages, key) => {
@@ -38,67 +39,94 @@ exports.onCreateWebpackConfig = ({ actions, plugins }, pluginOptions) => {
   })
 }
 
-exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
-  //Exit if the page has already been processed.
-  if (typeof page.context.intl === "object") {
+// Run once
+exports.sourceNodes = (_, options) => {
+  const {
+    url = "http://localhost:1337",
+    path = ".",
+    languages = ['en'],
+    query = null,
+  } = options;
+
+  if (!query) {
     return
   }
-  const { createPage, deletePage } = actions
-  const {
-    path = ".",
-    languages = ["en"],
-    defaultLanguage = "en",
-    redirect = false,
-  } = pluginOptions
+  
+  createJson(path, languages) // Jsons
 
-  const getMessages = (path, language) => {
-    try {
-      // TODO load yaml here
-      const messages = require(`${path}/${language}.json`)
-
-      return flattenMessages(messages)
-    } catch (error) {
-      if (error.code === "MODULE_NOT_FOUND") {
-        process.env.NODE_ENV !== "test" &&
-          console.error(
-            `[gatsby-plugin-intl] couldn't find file "${path}/${language}.json"`
-          )
-      }
-
-      throw error
-    }
+  const config = {
+    path,
+    url,
+    query,
+    languages
   }
 
-  const generatePage = (routed, language) => {
-    const messages = getMessages(path, language)
-    const newPath = routed ? `/${language}${page.path}` : page.path
-    return {
-      ...page,
-      path: newPath,
-      context: {
-        ...page.context,
-        intl: {
-          language,
-          languages,
-          messages,
-          routed,
-          originalPath: page.path,
-          redirect,
-        },
-      },
-    }
-  }
+  makeQuery(config)
 
-  const newPage = generatePage(false, defaultLanguage)
-  deletePage(page)
-  createPage(newPage)
-
-  languages.forEach(language => {
-    const localePage = generatePage(true, language)
-    const regexp = new RegExp("/404/?$")
-    if (regexp.test(localePage.path)) {
-      localePage.matchPath = `/${language}/*`
-    }
-    createPage(localePage)
-  })
+  
 }
+
+// exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
+//   //Exit if the page has already been processed.
+//   if (typeof page.context.intl === "object") {
+//     return
+//   }
+//   const { createPage, deletePage } = actions
+//   const {
+//     path = ".",
+//     languages = ["en"],
+//     defaultLanguage = "en",
+//     redirect = false,
+//   } = pluginOptions
+
+//   const getMessages = (path, language) => {
+//     try {
+//       // TODO load yaml here
+//       const messages = require(`${path}/${language}.json`)
+
+//       return flattenMessages(messages)
+//     } catch (error) {
+//       if (error.code === "MODULE_NOT_FOUND") {
+//         process.env.NODE_ENV !== "test" &&
+//           console.error(
+//             `[gatsby-plugin-intl-graphql] couldn't find file "${path}/${language}.json"`
+//           )
+//       }
+
+//       throw error
+//     }
+//   }
+
+//   const generatePage = (routed, language) => {
+//     const messages = getMessages(path, language)
+//     const newPath = routed ? `/${language}${page.path}` : page.path
+//     return {
+//       ...page,
+//       path: newPath,
+//       context: {
+//         ...page.context,
+//         intl: {
+//           language,
+//           languages,
+//           messages,
+//           routed,
+//           originalPath: page.path,
+//           redirect,
+//         },
+//       },
+//     }
+//   }
+
+//   const newPage = generatePage(false, defaultLanguage)
+//   deletePage(page)
+//   createPage(newPage)
+
+//   languages.forEach(language => {
+//     const localePage = generatePage(true, language)
+//     const regexp = new RegExp("/404/?$")
+//     if (regexp.test(localePage.path)) {
+//       localePage.matchPath = `/${language}/*`
+//     }
+//     createPage(localePage)
+//   })
+// }
