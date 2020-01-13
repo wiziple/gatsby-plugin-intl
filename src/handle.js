@@ -1,6 +1,6 @@
 import fs from "fs-extra"
 import { request, GraphQLClient } from "graphql-request"
-import { _writeOnce, _write } from "./helpers"
+import { _writeOnce, _write, _sanitizate } from "./helpers"
 
 const loopLangs = (langs, callback) => langs.forEach(lng => callback(lng))
 
@@ -24,12 +24,20 @@ export async function makeQuery({path, url, query, languages}) {
     try {
         const response = await request(endpoint, query)
 
-        loopLangs(languages, (lng) => {
-            const singlePath = `${path}/${lng}.json`
+            loopLangs(languages, (lng) => {
+                const singlePath = `${path}/${lng}.json`
+    
+                _write(singlePath, response, lng)
+            })
 
-            _write(singlePath, response)
-        })
     } catch (e) {
         throw new Error('Was an error: ', e);
     }
 }
+
+// export function clean(lang, path) {
+//     loopLangs(lang, (lng) => {
+//         const singlePath = `${path}/${lng}.json`
+//         _sanitizate(singlePath)
+//     })
+// }

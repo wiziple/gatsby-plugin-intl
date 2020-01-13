@@ -1,5 +1,5 @@
 const webpack = require("webpack")
-const { createJson, makeQuery } = require("./handle")
+const { createJson, makeQuery, clean } = require("./handle")
 
 function flattenMessages(nestedMessages, prefix = "") {
   return Object.keys(nestedMessages).reduce((messages, key) => {
@@ -62,7 +62,6 @@ exports.sourceNodes = (_, options) => {
   }
 
   makeQuery(config)
-
   
 }
 
