@@ -3,6 +3,43 @@ import fs from "fs-extra"
 const template = lng => JSON.parse(`{"static": {"lang":"${lng}"}}`)
 const find = lng => new RegExp(`content_${lng}`, 'g')
 
+// Clean the jsons
+function _sanitizate(res, data) {
+
+    const lang = data.static.lang
+
+    for (const x in res) {
+        const el = res[x]
+
+        for (const i in el) {
+            const prop = el[i]
+
+            for (let [key, value] of Object.entries(prop)) {
+                if (!key.match('content_')) {
+                    continue
+                } else {
+                    if (!prop[key]) {
+                        delete prop[key]
+                    }
+                    if (!find(lang).test(key)) {
+                        console.log(prop)
+                        // delete prop[key]
+                    } else {
+
+                        // const newkey = key.slice(0, -3)
+                        // prop[newkey] = value
+
+                        // console.log(prop)
+                        // delete prop[key]
+                    }
+                }
+            }
+        }
+    }
+
+    // console.log(res['articles'])
+}
+
 export function _writeOnce(path, lang = 'en') {
     const singlePath = `${path}/${lang}.json`
 
@@ -23,64 +60,18 @@ export function _write(path, content, lang) {
 
     fs.readJson(path)
         .then(data => {
-            // console.log(data)
+            const final = _sanitizate(content, data)
 
-            for (const x in content) {
-                // data[x] = content[x];
-                console.log('From _write: ', content)
+            for (const x in final) {
+                data[x] = final[x];
             }
 
-            // const str = JSON.stringify(data);
+            const str = JSON.stringify(data);
 
             // fs.outputFile(path, str)
-            //     .then(() => console.log('Write files success'))
+            //     .then(() => console.log('IntlGraphql: Write files success'))
             //     .catch(err => console.log(err))
         })
         .catch(e => console.log('Was an error:', e))
-
-}
-
-// Clean the jsons
-export function _sanitizate(path) {
-    fs.readJson(path)
-        .then(res => {
-            const lang = res.static.lang
-
-            for (const x in res) {
-                const el = res[x]
-
-                for (const i in el) {
-                    const prop = el[i]
-
-                    for (let [key, value] of Object.entries(prop)) {
-                        if (!key.match('content_')) {
-                            continue
-                        } else {
-                            if (!find(lang).test(key)) {
-                                delete prop[key]
-                            } else {
-                                const newkey = key.slice(0, -3)
-                                prop[newkey] = value
-                                delete prop[key]
-                            }
-                        }
-
-                        // Delete null elements
-                        if (value == null) {
-                            delete prop[key]
-                        }
-                    }
-                }
-            }
-
-            const str = JSON.stringify(res);
-
-            // console.log(res);
-
-            fs.outputFile(path, str)
-                .then(() => console.log('Success'))
-                .catch((e) => console.log(e))
-        })
-        .catch(err => console.error(err))
 
 }
