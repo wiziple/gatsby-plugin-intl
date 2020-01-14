@@ -28,6 +28,7 @@ export async function makeQuery({path, url, query, languages}) {
                 const singlePath = `${path}/${lng}.json`
     
                 _write(singlePath, response, lng)
+                _sanitizate(singlePath)
             })
 
     } catch (e) {

@@ -3,84 +3,75 @@ import fs from "fs-extra"
 const template = lng => JSON.parse(`{"static": {"lang":"${lng}"}}`)
 const find = lng => new RegExp(`content_${lng}`, 'g')
 
-export function _writeOnce(path, lang = 'en') {
+export async function _writeOnce(path, lang = 'en') {
     const singlePath = `${path}/${lang}.json`
 
-    fs.readJson(singlePath)
-        .then(() => 'The files already exists')
-        .catch(async () => {
-            try {
-                await fs.outputJson(singlePath, template(lang))
-                console.log('Files created succesfully')
-            } catch (e) {
-                throw new Error('Was an error: ', e)
-            }
-        })
+    try {
+        const res = await fs.readJson(singlePath)
+        console.log('The files already exists')
+    } catch (e) {
+        fs.outputJson(singlePath, template(lang))
+            .then(() => console.log('Files created succesfully'))
+            .catch(e => console.error('Was an error: ', e))
+    }
 }
 
 // Read existing files and later push new elements
 export function _write(path, content, lang) {
+    try {
+        const data = fs.readJsonSync(path)
+        for (const i in content) {
+            data[i] = content[i]
+        }
 
-    fs.readJson(path)
-        .then(data => {
-            // console.log(data)
+        const str = JSON.stringify(data)
 
-            for (const x in content) {
-                // data[x] = content[x];
-                console.log('From _write: ', content)
-            }
-
-            // const str = JSON.stringify(data);
-
-            // fs.outputFile(path, str)
-            //     .then(() => console.log('Write files success'))
-            //     .catch(err => console.log(err))
-        })
-        .catch(e => console.log('Was an error:', e))
-
+        fs.outputFileSync(path, str)
+        console.log('Write files success')
+    } catch (e) {
+        throw new Error('Was an error: ', e)
+    }
 }
 
 // Clean the jsons
-export function _sanitizate(path) {
-    fs.readJson(path)
-        .then(res => {
-            const lang = res.static.lang
+export async function _sanitizate(path) {
+    try {
+        const res = await fs.readJson(path)
+        const lang = res.static.lang
 
-            for (const x in res) {
-                const el = res[x]
+        for (const x in res) {
+            const el = res[x]
 
-                for (const i in el) {
-                    const prop = el[i]
+            for (const i in el) {
+                const prop = el[i]
 
-                    for (let [key, value] of Object.entries(prop)) {
-                        if (!key.match('content_')) {
-                            continue
+                for (let [key, value] of Object.entries(prop)) {
+                    if (!key.match('content_')) {
+                        continue
+                    } else {
+                        if (!find(lang).test(key)) {
+                            delete prop[key]
                         } else {
-                            if (!find(lang).test(key)) {
-                                delete prop[key]
-                            } else {
-                                const newkey = key.slice(0, -3)
-                                prop[newkey] = value
-                                delete prop[key]
-                            }
-                        }
-
-                        // Delete null elements
-                        if (value == null) {
+                            const newkey = key.slice(0, -3)
+                            prop[newkey] = value
                             delete prop[key]
                         }
                     }
+
+                    // Delete null elements
+                    if (value == null) {
+                        delete prop[key]
+                    }
                 }
             }
+        }
 
-            const str = JSON.stringify(res);
+        const str = JSON.stringify(res)
 
-            // console.log(res);
-
-            fs.outputFile(path, str)
-                .then(() => console.log('Success'))
-                .catch((e) => console.log(e))
-        })
-        .catch(err => console.error(err))
+        fs.outputFileSync(path, str)
+        console.log('Clean success')
+    } catch (e) {
+        throw new Error(e)
+    }
 
 }
