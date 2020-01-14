@@ -35,10 +35,3 @@ export async function makeQuery({path, url, query, languages}) {
         throw new Error('Was an error: ', e);
     }
 }
-
-// export function clean(lang, path) {
-//     loopLangs(lang, (lng) => {
-//         const singlePath = `${path}/${lng}.json`
-//         _sanitizate(singlePath)
-//     })
-// }
