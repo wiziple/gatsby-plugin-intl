@@ -11,33 +11,25 @@ function _sanitizate(res, data) {
     for (const x in res) {
         const el = res[x]
 
-        for (const i in el) {
-            const prop = el[i]
+        console.log(el)
 
-            for (let [key, value] of Object.entries(prop)) {
-                if (!key.match('content_')) {
-                    continue
-                } else {
-                    if (!prop[key]) {
-                        delete prop[key]
-                    }
-                    if (!find(lang).test(key)) {
-                        console.log(prop)
-                        // delete prop[key]
-                    } else {
+    //     for (const i in el) {
+    //         const prop = el[i]
 
-                        // const newkey = key.slice(0, -3)
-                        // prop[newkey] = value
+    //         for (let [key, value] of Object.entries(prop)) {
 
-                        // console.log(prop)
-                        // delete prop[key]
-                    }
-                }
-            }
-        }
+    //             if (key.match('content_')) {
+    //                 if (find(lang).test(key)) {
+    //                     const newkey = key.slice(0, -3)
+    //                     prop[newkey] = value
+    //                     delete prop[key]
+    //                 }
+    //             }
+    //         }
+    //     }
     }
 
-    // console.log(res['articles'])
+    // return `The languages are: ${lang}`
 }
 
 export function _writeOnce(path, lang = 'en') {
@@ -62,9 +54,11 @@ export function _write(path, content, lang) {
         .then(data => {
             const final = _sanitizate(content, data)
 
-            for (const x in final) {
-                data[x] = final[x];
-            }
+            // for (const x in final) {
+            //     data[x] = final[x];
+            // }
+
+            console.log(final)
 
             const str = JSON.stringify(data);
 
