@@ -28,16 +28,10 @@ export async function makeQuery({path, url, query, languages}) {
                 const singlePath = `${path}/${lng}.json`
     
                 _write(singlePath, response, lng)
+                _sanitizate(singlePath)
             })
 
     } catch (e) {
         throw new Error('Was an error: ', e);
     }
 }
-
-// export function clean(lang, path) {
-//     loopLangs(lang, (lng) => {
-//         const singlePath = `${path}/${lng}.json`
-//         _sanitizate(singlePath)
-//     })
-// }

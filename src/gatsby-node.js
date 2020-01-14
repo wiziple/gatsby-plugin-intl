@@ -62,7 +62,6 @@ exports.sourceNodes = (_, options) => {
   }
 
   makeQuery(config)
-  
 }
 
 // exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
