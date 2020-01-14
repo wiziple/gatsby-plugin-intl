@@ -55,12 +55,11 @@ export async function _sanitizate(path) {
                             const newkey = key.slice(0, -3)
                             prop[newkey] = value
                             delete prop[key]
-                        }
-                    }
 
-                    // Delete null elements
-                    if (value == null) {
-                        delete prop[key]
+                            if (value == null) {
+                               delete prop[newkey]
+                            }
+                        }
                     }
                 }
             }
