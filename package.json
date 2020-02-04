@@ -18,6 +18,7 @@
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
     "babel-preset-gatsby-package": "^0.2.0",
+    "cross-env": "^7.0.0",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
     "rimraf": "^2.6.3"
@@ -39,7 +40,7 @@
   "repository": "https://github.com/wiziple/gatsby-plugin-intl",
   "scripts": {
     "build": "babel src --out-dir . --ignore **/__tests__",
-    "prepare": "NODE_ENV=production npm run build",
+    "prepare": "cross-env NODE_ENV=production npm run build",
     "watch": "babel -w src --out-dir . --ignore **/__tests__",
     "format": "prettier --write {src,__tests__}/**/*.{js,jsx}",
     "test": "jest",
