@@ -67,7 +67,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
       // TODO load yaml here
       const messages = require(`${path}/${language}.json`)
 
-      return flattenMessages(messages)
+      return messages
     } catch (error) {
       if (error.code === "MODULE_NOT_FOUND") {
         process.env.NODE_ENV !== "test" &&
