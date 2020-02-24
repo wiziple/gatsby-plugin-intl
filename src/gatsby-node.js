@@ -77,6 +77,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
       path: newPath,
       context: {
         ...page.context,
+        language,
         intl: {
           language,
           languages,
