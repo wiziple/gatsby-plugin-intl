@@ -23,21 +23,26 @@ const polyfillIntl = language => {
   }
 }
 
-const withIntlProvider = intl => children => {
+const withIntlProvider = (intl, defaultLanguage) => children => {
   polyfillIntl(intl.language)
   return (
-    <IntlProvider locale={intl.language} messages={intl.messages}>
+    <IntlProvider
+      locale={intl.language}
+      defaultLocale={defaultLanguage}
+      messages={intl.messages}
+    >
       <IntlContextProvider value={intl}>{children}</IntlContextProvider>
     </IntlProvider>
   )
 }
 
-export default ({ element, props }) => {
+export default ({ element, props }, pluginOptions) => {
   if (!props) {
     return
   }
 
   const { pageContext, location } = props
+  const { defaultLanguage } = pluginOptions
   const { intl } = pageContext
   const { language, languages, redirect, routed, originalPath } = intl
 
@@ -75,5 +80,5 @@ export default ({ element, props }) => {
         preferDefault(require(GATSBY_INTL_REDIRECT_COMPONENT_PATH))
       )
     : element
-  return withIntlProvider(intl)(renderElement)
+  return withIntlProvider(intl, defaultLanguage)(renderElement)
 }
