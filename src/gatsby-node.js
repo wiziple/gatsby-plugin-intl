@@ -85,6 +85,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
           routed,
           originalPath: page.path,
           redirect,
+          defaultLanguage,
         },
       },
     }
