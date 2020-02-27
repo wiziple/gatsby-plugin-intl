@@ -25,6 +25,7 @@ Source: [https://github.com/wiziple/gatsby-plugin-intl/tree/master/examples/gats
 
 - [https://picpick.app](https://picpick.app)
 - [https://www.krashna.nl](https://www.krashna.nl) [(Source)](https://github.com/krashnamusika/krashna-site)
+- [https://vaktija.eu](https://vaktija.eu)
 
 *Feel free to send us PR to add your project.*
 
