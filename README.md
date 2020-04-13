@@ -27,6 +27,7 @@ Source: [https://github.com/wiziple/gatsby-plugin-intl/tree/master/examples/gats
 - [https://www.krashna.nl](https://www.krashna.nl) [(Source)](https://github.com/krashnamusika/krashna-site)
 - [https://vaktija.eu](https://vaktija.eu)
 - [https://anhek.dev](https://anhek.dev) [(Source)](https://github.com/anhek/anhek-portfolio)
+- [https://pkhctech.ineo.vn](https://pkhctech.ineo.vn) [(Source)](https://github.com/hoangbaovu/gatsby-pkhctech)
 
 *Feel free to send us PR to add your project.*
 
