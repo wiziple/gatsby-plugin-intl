@@ -1,4 +1,5 @@
 const webpack = require("webpack")
+const { isMatch } = require("./util")
 
 function flattenMessages(nestedMessages, prefix = "") {
   return Object.keys(nestedMessages).reduce((messages, key) => {
@@ -49,6 +50,8 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     languages = ["en"],
     defaultLanguage = "en",
     redirect = false,
+    ignoredPaths = [],
+    redirectDefaultLanguageToRoot = false,
   } = pluginOptions
 
   const getMessages = (path, language) => {
@@ -85,7 +88,9 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
           routed,
           originalPath: page.path,
           redirect,
+          redirectDefaultLanguageToRoot,
           defaultLanguage,
+          ignoredPaths,
         },
       },
     }
@@ -96,11 +101,22 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
   createPage(newPage)
 
   languages.forEach(language => {
-    const localePage = generatePage(true, language)
-    const regexp = new RegExp("/404/?$")
-    if (regexp.test(localePage.path)) {
-      localePage.matchPath = `/${language}/*`
+    // check ignore paths, if matched then don't generate locale page
+    if (!isMatch(ignoredPaths, page.path)) {
+      if (
+        redirectDefaultLanguageToRoot === true &&
+        language === defaultLanguage
+      ) {
+        // default language will redirect to root, so there is no need to generate default langauge pages
+        // do nothing
+      } else {
+        const localePage = generatePage(true, language)
+        const regexp = new RegExp("/404/?$")
+        if (regexp.test(localePage.path)) {
+          localePage.matchPath = `/${language}/*`
+        }
+        createPage(localePage)
+      }
     }
-    createPage(localePage)
   })
 }
