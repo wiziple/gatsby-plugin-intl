@@ -92,11 +92,12 @@ export default ({ element, props }, pluginOptions) => {
       }
     }
   }
-  const renderElement = isRedirect
-    ? GATSBY_INTL_REDIRECT_COMPONENT_PATH &&
-      React.createElement(
-        preferDefault(require(GATSBY_INTL_REDIRECT_COMPONENT_PATH))
-      )
-    : element
+  const renderElement =
+    isRedirect && !redirectDefaultLanguageToRoot
+      ? GATSBY_INTL_REDIRECT_COMPONENT_PATH &&
+        React.createElement(
+          preferDefault(require(GATSBY_INTL_REDIRECT_COMPONENT_PATH))
+        )
+      : element
   return withIntlProvider(intl)(renderElement)
 }
