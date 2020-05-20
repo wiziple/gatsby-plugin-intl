@@ -1,6 +1,6 @@
 import React from "react"
 import browserLang from "browser-lang"
-import { withPrefix } from "gatsby"
+import { navigate } from "gatsby"
 import { IntlProvider } from "react-intl"
 import { IntlContextProvider } from "./intl-context"
 import { isMatch } from "./util"
@@ -85,10 +85,12 @@ export default ({ element, props }, pluginOptions) => {
 
       if (isRedirect) {
         const queryParams = search || ""
-        const newUrl = withPrefix(`/${detected}${originalPath}${queryParams}`)
+        const newUrl = `/${detected}${originalPath}${queryParams}`
         window.localStorage.setItem("gatsby-intl-language", detected)
 
-        window.location.replace(newUrl)
+        navigate(newUrl, {
+          replace: true,
+        })
       }
     }
   }
