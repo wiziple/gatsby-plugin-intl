@@ -1,10 +1,24 @@
 import React from "react"
 import browserLang from "browser-lang"
-import { withPrefix } from "gatsby"
+import { navigate } from "gatsby"
 import { IntlProvider } from "react-intl"
 import { IntlContextProvider } from "./intl-context"
 
 const preferDefault = m => (m && m.default) || m
+
+const replaceParams = (path, props) => {
+  const regex = /\:(\w+)/g
+
+  let newPath = path
+  let match
+  while ((match = regex.exec(path)) !== null) {
+    newPath = newPath.replace(
+      new RegExp(match[0], "g"),
+      props[match[1]] || match[0]
+    )
+  }
+  return newPath
+}
 
 const polyfillIntl = language => {
   const locale = language.split("-")[0]
@@ -23,7 +37,7 @@ const polyfillIntl = language => {
   }
 }
 
-const withIntlProvider = (intl) => children => {
+const withIntlProvider = intl => children => {
   polyfillIntl(intl.language)
   return (
     <IntlProvider
@@ -69,9 +83,13 @@ export default ({ element, props }, pluginOptions) => {
       }
 
       const queryParams = search || ""
-      const newUrl = withPrefix(`/${detected}${originalPath}${queryParams}`)
+      const pathWithParams = replaceParams(originalPath, props)
+
+      const newUrl = `/${detected}${pathWithParams}${queryParams}`
       window.localStorage.setItem("gatsby-intl-language", detected)
-      window.location.replace(newUrl)
+      navigate(newUrl, {
+        replace: true,
+      })
     }
   }
   const renderElement = isRedirect
