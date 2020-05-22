@@ -91,6 +91,13 @@ export default ({ element, props }, pluginOptions) => {
         navigate(newUrl, {
           replace: true,
         })
+        // browser should render redirect element
+        const renderElement =
+          GATSBY_INTL_REDIRECT_COMPONENT_PATH &&
+          React.createElement(
+            preferDefault(require(GATSBY_INTL_REDIRECT_COMPONENT_PATH))
+          )
+        return withIntlProvider(intl)(renderElement)
       }
     }
   }
