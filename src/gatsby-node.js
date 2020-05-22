@@ -69,9 +69,21 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     }
   }
 
+  // Return all languages slug for this page
+  const getSlugs = (path) => {
+    const currentPage = page.path.replace(/\//g, "")
+    var slugs = {}
+    languages.forEach(language => {
+      var messages = getMessages(path, language)
+      slugs[language] = messages[`${currentPage}.slug`] ? `/${messages[currentPage + '.slug']}` : `/${currentPage}`
+    })
+    return slugs
+  }
+
   const generatePage = (routed, language) => {
     const messages = getMessages(path, language)
-    const newPath = routed ? `/${language}${page.path}` : page.path
+    const slugs = getSlugs(path);
+    var newPath = routed ? `/${language}${slugs[language]}` : `${slugs[language]}`
     return {
       ...page,
       path: newPath,
@@ -81,6 +93,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
         intl: {
           language,
           languages,
+          slugs,
           messages,
           routed,
           originalPath: page.path,
