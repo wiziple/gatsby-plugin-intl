@@ -1,4 +1,5 @@
 const webpack = require("webpack")
+const fs = require('fs')
 
 function flattenMessages(nestedMessages, prefix = "") {
   return Object.keys(nestedMessages).reduce((messages, key) => {
@@ -53,8 +54,17 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
 
   const getMessages = (path, language) => {
     try {
-      // TODO load yaml here
-      const messages = require(`${path}/${language}.json`)
+
+      let messages;
+
+
+      if(fs.existsSync(`${path}/${language}.json`))
+        messages = require(`${path}/${language}.json`)
+      else if(fs.existsSync(`${path}/${language}/index.js`))
+        messages = require(`${path}/${language}/index.js`)
+      else
+        messages = require(`${path}/${language}.js`)
+      
 
       return flattenMessages(messages)
     } catch (error) {
