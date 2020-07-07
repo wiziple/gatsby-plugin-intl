@@ -1,13 +1,13 @@
-export const getLocale = language => {
-  return typeof language === "object" ? language.locale : language
+export const getLanguage = languageOption => {
+  return typeof languageOption === "object" ? languageOption.locale : languageOption
 }
 
-export const getRoutePrefix = language => {
-  return typeof language === "object" ? language.prefix : language
+export const getRoutePrefix = languageOption => {
+  return typeof languageOption === "object" ? languageOption.prefix : languageOption
 }
 
-export const getLocales = languages =>
-  languages.map(language => getLocale(language))
+export const getLanguages = languageOptions =>
+  languageOptions.map(languageOption => getLanguage(languageOption))
 
-export const getLanguage = (languages, language) =>
-  languages.find(l => getLocale(l) === language)
+export const getLanguageOption = (languageOptions, language) =>
+  languageOptions.find(l => getLanguage(l) === language)

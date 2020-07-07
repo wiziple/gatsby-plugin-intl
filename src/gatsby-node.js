@@ -1,9 +1,9 @@
 const webpack = require("webpack")
 const {
-  getLocale,
-  getRoutePrefix,
-  getLocales,
   getLanguage,
+  getRoutePrefix,
+  getLanguages,
+  getLanguageOption,
 } = require("./route-prefix")
 
 function flattenMessages(nestedMessages, prefix = "") {
@@ -23,7 +23,7 @@ function flattenMessages(nestedMessages, prefix = "") {
 
 exports.onCreateWebpackConfig = ({ actions, plugins }, pluginOptions) => {
   const { redirectComponent = null, languages, defaultLanguage } = pluginOptions
-  const locales = getLocales(languages)
+  const locales = getLanguages(languages)
   if (!locales.includes(defaultLanguage)) {
     locales.push(defaultLanguage)
   }
@@ -77,11 +77,11 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
   }
 
   const generatePage = (routed, language) => {
-    const locale = getLocale(language)
+    const locale = getLanguage(language)
     const routePrefix = getRoutePrefix(language)
     const messages = getMessages(path, locale)
     const newPath = routed ? `/${routePrefix}${page.path}` : page.path
-    const locales = getLocales(languages)
+    const locales = getLanguages(languages)
     return {
       ...page,
       path: newPath,
@@ -97,13 +97,13 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
           routed,
           originalPath: page.path,
           redirect,
-          defaultLanguage: getLocale(defaultLanguage),
+          defaultLanguage: getLanguage(defaultLanguage),
         },
       },
     }
   }
 
-  const newPage = generatePage(false, getLanguage(languages, defaultLanguage))
+  const newPage = generatePage(false, getLanguageOption(languages, defaultLanguage))
   deletePage(page)
   createPage(newPage)
 

@@ -2,14 +2,14 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Link as GatsbyLink, navigate as gatsbyNavigate } from "gatsby"
 import { IntlContextConsumer } from "./intl-context"
-import { getRoutePrefix, getLanguage } from "./route-prefix"
+import { getRoutePrefix, getLanguageOption } from "./route-prefix"
 
 const Link = ({ to, language, children, onClick, ...rest }) => (
   <IntlContextConsumer>
     {intl => {
       const languageLink = language || intl.language
       const prefix = getRoutePrefix(
-        getLanguage(intl.languageOptions, languageLink)
+        getLanguageOption(intl.languageOptions, languageLink)
       )
       const link = intl.routed || language ? `/${prefix}${to}` : `${to}`
 
@@ -49,7 +49,7 @@ export const navigate = (to, options) => {
   }
 
   const { language, routed, languageOptions } = window.___gatsbyIntl
-  const prefix = getRoutePrefix(getLanguage(languageOptions, language))
+  const prefix = getRoutePrefix(getLanguageOption(languageOptions, language))
   const link = routed ? `/${prefix}${to}` : `${to}`
   gatsbyNavigate(link, options)
 }
@@ -79,7 +79,7 @@ export const changeLocale = (language, to) => {
 
   const pathname =
     to || removeLocalePart(removePrefix(window.location.pathname))
-  const prefix = getRoutePrefix(getLanguage(languageOptions, language))
+  const prefix = getRoutePrefix(getLanguageOption(languageOptions, language))
   // TODO: check slash
   const link = `/${prefix}${pathname}${window.location.search}`
   localStorage.setItem("gatsby-intl-language", language)

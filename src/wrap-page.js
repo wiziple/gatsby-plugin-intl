@@ -3,7 +3,7 @@ import browserLang from "browser-lang"
 import { withPrefix } from "gatsby"
 import { IntlProvider } from "react-intl"
 import { IntlContextProvider } from "./intl-context"
-const { getRoutePrefix, getLanguage } = require("./route-prefix")
+const { getRoutePrefix, getLanguageOption } = require("./route-prefix")
 
 const preferDefault = m => (m && m.default) || m
 
@@ -69,7 +69,7 @@ export default ({ element, props }, pluginOptions) => {
         detected = language
       }
 
-      const prefix = getRoutePrefix(getLanguage(languageOptions, detected))
+      const prefix = getRoutePrefix(getLanguageOption(languageOptions, detected))
 
       const queryParams = search || ""
       const newUrl = withPrefix(`/${prefix}${originalPath}${queryParams}`)

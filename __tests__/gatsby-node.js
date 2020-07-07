@@ -2,10 +2,10 @@ const fs = require(`fs`)
 
 const { onCreatePage } = require(`../src/gatsby-node`)
 const {
-  getLocale,
-  getRoutePrefix,
-  getLocales,
   getLanguage,
+  getRoutePrefix,
+  getLanguages,
+  getLanguageOption,
 } = require("../src/route-prefix")
 
 const actions = {
@@ -21,10 +21,10 @@ const mocks = {
   },
 }
 
-describe("getLocale", () => {
+describe("getLanguage", () => {
   it("returns a string when language is a string", () => {
     const language = "en"
-    const locale = getLocale(language)
+    const locale = getLanguage(language)
 
     expect(locale).toEqual("en")
   })
@@ -33,7 +33,7 @@ describe("getLocale", () => {
       locale: "en",
       prefix: "english",
     }
-    const locale = getLocale(language)
+    const locale = getLanguage(language)
 
     expect(locale).toEqual("en")
   })
@@ -57,19 +57,19 @@ describe("getRoutePrefix", () => {
   })
 })
 
-describe("getLocales", () => {
+describe("getLanguages", () => {
   it("returns array of locale names", () => {
-    const languages = ["en", { locale: "es", prefix: "spanish" }]
-    const locales = getLocales(languages)
+    const languageOptions = ["en", { locale: "es", prefix: "spanish" }]
+    const locales = getLanguages(languageOptions)
 
     expect(locales).toEqual(["en", "es"])
   })
 })
 
-describe("getLanguage", () => {
+describe("getLanguageOption", () => {
   it("returns a string when language is a string", () => {
-    const languages = ["en", { locale: "es", prefix: "spanish" }]
-    const language = getLanguage(languages, "es")
+    const languageOptions = ["en", { locale: "es", prefix: "spanish" }]
+    const language = getLanguageOption(languageOptions, "es")
 
     expect(language).toEqual({ locale: "es", prefix: "spanish" })
   })
