@@ -2,12 +2,16 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Link as GatsbyLink, navigate as gatsbyNavigate } from "gatsby"
 import { IntlContextConsumer } from "./intl-context"
+import { getRoutePrefix, getLanguage } from "./route-prefix"
 
 const Link = ({ to, language, children, onClick, ...rest }) => (
   <IntlContextConsumer>
     {intl => {
       const languageLink = language || intl.language
-      const link = intl.routed || language ? `/${languageLink}${to}` : `${to}`
+      const prefix = getRoutePrefix(
+        getLanguage(intl.languageOptions, languageLink)
+      )
+      const link = intl.routed || language ? `/${prefix}${to}` : `${to}`
 
       const handleClick = e => {
         if (language) {
@@ -44,8 +48,9 @@ export const navigate = (to, options) => {
     return
   }
 
-  const { language, routed } = window.___gatsbyIntl
-  const link = routed ? `/${language}${to}` : `${to}`
+  const { language, routed, languageOptions } = window.___gatsbyIntl
+  const prefix = getRoutePrefix(getLanguage(languageOptions, language))
+  const link = routed ? `/${prefix}${to}` : `${to}`
   gatsbyNavigate(link, options)
 }
 
@@ -53,7 +58,7 @@ export const changeLocale = (language, to) => {
   if (typeof window === "undefined") {
     return
   }
-  const { routed } = window.___gatsbyIntl
+  const { routed, languageOptions } = window.___gatsbyIntl
 
   const removePrefix = pathname => {
     const base =
@@ -74,8 +79,9 @@ export const changeLocale = (language, to) => {
 
   const pathname =
     to || removeLocalePart(removePrefix(window.location.pathname))
+  const prefix = getRoutePrefix(getLanguage(languageOptions, language))
   // TODO: check slash
-  const link = `/${language}${pathname}${window.location.search}`
+  const link = `/${prefix}${pathname}${window.location.search}`
   localStorage.setItem("gatsby-intl-language", language)
   gatsbyNavigate(link)
 }

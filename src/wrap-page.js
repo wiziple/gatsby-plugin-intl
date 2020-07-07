@@ -3,6 +3,7 @@ import browserLang from "browser-lang"
 import { withPrefix } from "gatsby"
 import { IntlProvider } from "react-intl"
 import { IntlContextProvider } from "./intl-context"
+const { getRoutePrefix, getLanguage } = require("./route-prefix")
 
 const preferDefault = m => (m && m.default) || m
 
@@ -23,7 +24,7 @@ const polyfillIntl = language => {
   }
 }
 
-const withIntlProvider = (intl) => children => {
+const withIntlProvider = intl => children => {
   polyfillIntl(intl.language)
   return (
     <IntlProvider
@@ -42,7 +43,7 @@ export default ({ element, props }, pluginOptions) => {
   }
 
   const { pageContext, location } = props
-  const { defaultLanguage } = pluginOptions
+  const { languages: languageOptions } = pluginOptions
   const { intl } = pageContext
   const { language, languages, redirect, routed, originalPath } = intl
 
@@ -68,8 +69,10 @@ export default ({ element, props }, pluginOptions) => {
         detected = language
       }
 
+      const prefix = getRoutePrefix(getLanguage(languageOptions, detected))
+
       const queryParams = search || ""
-      const newUrl = withPrefix(`/${detected}${originalPath}${queryParams}`)
+      const newUrl = withPrefix(`/${prefix}${originalPath}${queryParams}`)
       window.localStorage.setItem("gatsby-intl-language", detected)
       window.location.replace(newUrl)
     }

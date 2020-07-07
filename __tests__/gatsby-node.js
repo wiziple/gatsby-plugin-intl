@@ -180,6 +180,7 @@ describe("onCreatePage", () => {
       intl: {
         language: "es",
         languages: ["es"],
+        languageOptions: [{ locale: "es", prefix: "spanish" }],
         messages: {},
         routed: false,
         originalPath: "/",
@@ -193,6 +194,7 @@ describe("onCreatePage", () => {
       intl: {
         language: "es",
         languages: ["es"],
+        languageOptions: [{ locale: "es", prefix: "spanish" }],
         messages: {},
         routed: true,
         originalPath: "/",
