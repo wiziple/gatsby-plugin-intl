@@ -51,6 +51,24 @@ it(`should read translations from file and create corresponding pages`, async ()
   expect(actions.createPage.mock.calls[3][0].path).toBe(`/es/`)
 })
 
+it(`should accept a custom prefix for the URL`, async () => {
+  const pluginOptions = {
+    languages: [{ locale: "es", prefix: "spanish" }],
+    defaultLanguage: `es`,
+    path: `${__dirname}/fixtures/intl`,
+  }
+
+  await onCreatePage(mocks, pluginOptions)
+
+  expect(actions.createPage.mock.calls.length).toBe(4)
+
+  // assert the pages created match the requested languages
+  expect(actions.createPage.mock.calls[0][0].path).toBe(`/`)
+  expect(actions.createPage.mock.calls[1][0].path).toBe(`/en/`)
+  expect(actions.createPage.mock.calls[2][0].path).toBe(`/`)
+  expect(actions.createPage.mock.calls[3][0].path).toBe(`/spanish/`)
+})
+
 it(`should crash when translations file doesn't exist`, async () => {
   const pluginOptions = {
     languages: [`es`, `en`],
