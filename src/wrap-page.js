@@ -5,9 +5,9 @@ import { IntlProvider } from "react-intl"
 import { IntlContextProvider } from "./intl-context"
 const { getRoutePrefix, getLanguageOption } = require("./route-prefix")
 
-const preferDefault = m => (m && m.default) || m
+export const preferDefault = m => (m && m.default) || m
 
-const polyfillIntl = language => {
+export const polyfillIntl = language => {
   const locale = language.split("-")[0]
   try {
     if (!Intl.PluralRules) {
@@ -24,7 +24,7 @@ const polyfillIntl = language => {
   }
 }
 
-const withIntlProvider = intl => children => {
+export const withIntlProvider = intl => children => {
   polyfillIntl(intl.language)
   return (
     <IntlProvider
@@ -69,7 +69,9 @@ export default ({ element, props }, pluginOptions) => {
         detected = language
       }
 
-      const prefix = getRoutePrefix(getLanguageOption(languageOptions, detected))
+      const prefix = getRoutePrefix(
+        getLanguageOption(languageOptions, detected)
+      )
 
       const queryParams = search || ""
       const newUrl = withPrefix(`/${prefix}${originalPath}${queryParams}`)
