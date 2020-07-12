@@ -23,6 +23,7 @@
     "cross-env": "^7.0.0",
     "jest": "^25.1.0",
     "prettier": "^1.19.1",
+    "react-dom": "^16.13.1",
     "rimraf": "^3.0.2"
   },
   "homepage": "https://github.com/wiziple/gatsby-plugin-intl",
