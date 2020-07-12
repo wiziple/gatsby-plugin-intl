@@ -1,6 +1,11 @@
 const fs = require(`fs`)
+const webpack = require("webpack")
 
-const { flattenMessages, onCreatePage } = require(`../src/gatsby-node`)
+const {
+  flattenMessages,
+  onCreatePage,
+  onCreateWebpackConfig,
+} = require(`../src/gatsby-node`)
 const {
   getLanguage,
   getRoutePrefix,
@@ -256,5 +261,133 @@ describe("flattenMessages", () => {
       "language.spanish": "Spanish version",
       "language.english": "English version",
     })
+  })
+})
+
+const originalContextReplacementPlugin = webpack.ContextReplacementPlugin
+
+const gatsbyOptions = {
+  actions: {
+    setWebpackConfig: jest.fn(),
+  },
+  plugins: {
+    define: jest.fn().mockReturnValue("define"),
+  },
+}
+
+describe("onCreateWebpackConfig", () => {
+  beforeAll(() => {
+    webpack.ContextReplacementPlugin = jest.fn()
+  })
+
+  afterAll(() => {
+    webpack.ContextReplacementPlugin = originalContextReplacementPlugin
+  })
+
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
+  it(`should call setWebpackConfig with correct arguments`, async () => {
+    const pluginOptions = {
+      redirectComponent: "a redirect component",
+      languages: ["es"],
+      defaultLanguage: "es",
+    }
+
+    onCreateWebpackConfig(gatsbyOptions, pluginOptions)
+
+    expect(gatsbyOptions.actions.setWebpackConfig).toHaveBeenCalledTimes(1)
+    expect(gatsbyOptions.actions.setWebpackConfig).toHaveBeenCalledWith({
+      plugins: ["define", {}, {}],
+    })
+
+    expect(gatsbyOptions.plugins.define).toHaveBeenCalledTimes(1)
+    expect(gatsbyOptions.plugins.define).toHaveBeenCalledWith({
+      GATSBY_INTL_REDIRECT_COMPONENT_PATH: '"a redirect component"',
+    })
+
+    expect(webpack.ContextReplacementPlugin).toHaveBeenCalledTimes(2)
+    expect(webpack.ContextReplacementPlugin).toHaveBeenNthCalledWith(
+      1,
+      /@formatjs[/\\]intl-relativetimeformat[/\\]dist[/\\]locale-data$/,
+      /es/
+    )
+    expect(webpack.ContextReplacementPlugin).toHaveBeenNthCalledWith(
+      2,
+      /@formatjs[/\\]intl-pluralrules[/\\]dist[/\\]locale-data$/,
+      /es/
+    )
+  })
+
+  it(`should create regex with all languages`, async () => {
+    const pluginOptions = {
+      redirectComponent: "a redirect component",
+      languages: ["es", "en"],
+      defaultLanguage: "es",
+    }
+
+    onCreateWebpackConfig(gatsbyOptions, pluginOptions)
+
+    expect(webpack.ContextReplacementPlugin).toHaveBeenCalledTimes(2)
+    expect(webpack.ContextReplacementPlugin).toHaveBeenNthCalledWith(
+      1,
+      /@formatjs[/\\]intl-relativetimeformat[/\\]dist[/\\]locale-data$/,
+      /es|en/
+    )
+    expect(webpack.ContextReplacementPlugin).toHaveBeenNthCalledWith(
+      2,
+      /@formatjs[/\\]intl-pluralrules[/\\]dist[/\\]locale-data$/,
+      /es|en/
+    )
+  })
+
+  it(`should add default language to regex`, async () => {
+    const pluginOptions = {
+      redirectComponent: "a redirect component",
+      languages: ["en"],
+      defaultLanguage: "es",
+    }
+
+    onCreateWebpackConfig(gatsbyOptions, pluginOptions)
+
+    expect(webpack.ContextReplacementPlugin).toHaveBeenCalledTimes(2)
+    expect(webpack.ContextReplacementPlugin).toHaveBeenNthCalledWith(
+      1,
+      /@formatjs[/\\]intl-relativetimeformat[/\\]dist[/\\]locale-data$/,
+      /en|es/
+    )
+    expect(webpack.ContextReplacementPlugin).toHaveBeenNthCalledWith(
+      2,
+      /@formatjs[/\\]intl-pluralrules[/\\]dist[/\\]locale-data$/,
+      /en|es/
+    )
+  })
+
+  it(`should create regex with locale when language option with prefix is used`, async () => {
+    const pluginOptions = {
+      languages: [
+        {
+          locale: "es",
+          prefix: "spanish",
+        },
+        "en",
+      ],
+      defaultLanguage: "es",
+    }
+
+    onCreateWebpackConfig(gatsbyOptions, pluginOptions)
+
+    expect(webpack.ContextReplacementPlugin).toHaveBeenCalledTimes(2)
+    expect(webpack.ContextReplacementPlugin).toHaveBeenNthCalledWith(
+      1,
+      /@formatjs[/\\]intl-relativetimeformat[/\\]dist[/\\]locale-data$/,
+      /es|en/
+    )
+    expect(webpack.ContextReplacementPlugin).toHaveBeenNthCalledWith(
+      2,
+      /@formatjs[/\\]intl-pluralrules[/\\]dist[/\\]locale-data$/,
+      /es|en/
+    )
   })
 })
