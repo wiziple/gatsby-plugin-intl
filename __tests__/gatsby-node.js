@@ -103,6 +103,38 @@ describe("onCreatePage", () => {
     await onCreatePage(mocks, pluginOptions)
   })
 
+  it(`should exit if page has already been processed`, async () => {
+    const value = await onCreatePage({
+      page: { context: { intl: {} } },
+    })
+
+    expect(value).toEqual(undefined)
+    expect(actions.createPage.mock.calls.length).toBe(0)
+  })
+
+  it(`creates 404 page with a matchPath to catch all pages`, async () => {
+    const notFoundMocks = {
+      actions,
+      page: {
+        path: "/404/",
+        context: {},
+      },
+    }
+
+    const pluginOptions = {
+      languages: [`es`],
+      defaultLanguage: `es`,
+      path: `${__dirname}/fixtures/intl`,
+    }
+
+    await onCreatePage(notFoundMocks, pluginOptions)
+
+    expect(actions.createPage.mock.calls.length).toBe(2)
+
+    expect(actions.createPage.mock.calls[0][0].matchPath).toBe(undefined)
+    expect(actions.createPage.mock.calls[1][0].matchPath).toBe(`/es/*`)
+  })
+
   it(`should read translations from file and create corresponding pages`, async () => {
     const pluginOptions = {
       languages: [`es`],
