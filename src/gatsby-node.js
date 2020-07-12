@@ -21,6 +21,8 @@ function flattenMessages(nestedMessages, prefix = "") {
   }, {})
 }
 
+exports.flattenMessages = flattenMessages
+
 exports.onCreateWebpackConfig = ({ actions, plugins }, pluginOptions) => {
   const { redirectComponent = null, languages, defaultLanguage } = pluginOptions
   const locales = getLanguages(languages)
@@ -103,7 +105,10 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     }
   }
 
-  const newPage = generatePage(false, getLanguageOption(languages, defaultLanguage))
+  const newPage = generatePage(
+    false,
+    getLanguageOption(languages, defaultLanguage)
+  )
   deletePage(page)
   createPage(newPage)
 

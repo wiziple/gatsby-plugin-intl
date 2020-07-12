@@ -1,6 +1,6 @@
 const fs = require(`fs`)
 
-const { onCreatePage } = require(`../src/gatsby-node`)
+const { flattenMessages, onCreatePage } = require(`../src/gatsby-node`)
 const {
   getLanguage,
   getRoutePrefix,
@@ -214,5 +214,47 @@ describe("onCreatePage", () => {
     await expect(onCreatePage(mocks, pluginOptions)).rejects.toThrow(
       `Cannot find module`
     )
+  })
+})
+
+describe("flattenMessages", () => {
+  it(`should return already flattened messages`, async () => {
+    const messages = {
+      spanish: "Spanish version",
+      english: "English version",
+    }
+
+    const flattened = flattenMessages(messages)
+
+    expect(flattened).toEqual(messages)
+  })
+  it(`should flatten messages by prepending key`, async () => {
+    const messages = {
+      spanish: "Spanish version",
+      english: {
+        version: "English version",
+      },
+    }
+
+    const flattened = flattenMessages(messages)
+
+    expect(flattened).toEqual({
+      spanish: "Spanish version",
+      "english.version": "English version",
+    })
+  })
+  it(`should prefix message keys`, async () => {
+    const messages = {
+      spanish: "Spanish version",
+      english: "English version",
+    }
+    const prefix = "language"
+
+    const flattened = flattenMessages(messages, prefix)
+
+    expect(flattened).toEqual({
+      "language.spanish": "Spanish version",
+      "language.english": "English version",
+    })
   })
 })
