@@ -1,4 +1,5 @@
-const { preferDefault, polyfillIntl } = require(`../src/wrap-page`)
+const { preferDefault } = require(`../src/wrap-page`)
+const { polyfillIntl } = require(`../src/polyfill`)
 
 describe("preferDefault", () => {
   it("returns module when module does not have default export", () => {
