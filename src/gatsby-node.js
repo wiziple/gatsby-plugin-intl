@@ -53,18 +53,10 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
 
   const getMessages = (path, language) => {
     try {
+      // TODO load yaml here
+      const messages = require(`${path}/${language}.json`)
 
-      // Patch for fetching data in custom messages format
-      const messages = require(`${path}/${language}.json`).reduce((acc, translation) => {
-          if (translation.message) {
-            acc[translation.id] = translation.message
-          }
-
-          return acc
-        }, {})
-      // patch end
-
-      return messages
+      return flattenMessages(messages)
     } catch (error) {
       if (error.code === "MODULE_NOT_FOUND") {
         process.env.NODE_ENV !== "test" &&
