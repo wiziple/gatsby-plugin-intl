@@ -41,7 +41,7 @@ exports.onCreateWebpackConfig = ({ actions, plugins }, pluginOptions) => {
 exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
   //Exit if the page has already been processed.
   if (typeof page.context.intl === "object") {
-    return
+    return;
   }
   const { createPage, deletePage } = actions
   const {
@@ -89,6 +89,13 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
         },
       },
     }
+  }
+
+  if (page.language) {
+    const newPage = generatePage(false, page.language)
+    deletePage(page)
+    createPage(newPage)
+    return;
   }
 
   const newPage = generatePage(false, defaultLanguage)
