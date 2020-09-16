@@ -1,7 +1,7 @@
 {
   "name": "@dethtroll/gatsby-plugin-intl",
   "description": "Gatsby plugin to add react-intl onto a site",
-  "version": "0.3.3",
+  "version": "0.3.11",
   "author": "Daewoong Moon <wiziple@gmail.com>",
   "bugs": {
     "url": "https://github.com/wiziple/gatsby-plugin-intl"

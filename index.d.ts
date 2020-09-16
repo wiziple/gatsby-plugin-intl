@@ -1,4 +1,4 @@
-declare module 'gatsby-plugin-intl' {
+declare module '@dethtroll/gatsby-plugin-intl' {
   import * as gatsby from 'gatsby';
   import React from 'react';
   import { IntlShape } from "react-intl";
