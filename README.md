@@ -128,7 +128,7 @@ src/pages/page-2.js | /**en**/page-2 | /**ko**/page-2 | /**de**/page-2 | /page-2
 
 **Default Pages and Redirection**
 
-If redirect option is `true`, `/` or `/page-2` will be redirected to the user's preferred language router. e.g) `/ko` or `/ko/page-2`. Otherwise, the pages will render `defaultLangugage` language. You can also specify additional component to be rendered on redirection page by adding `redirectComponent` option.
+If redirect option is `true`, `/` or `/page-2` will be redirected to the user's preferred language router. e.g) `/ko` or `/ko/page-2`. Otherwise, the pages will render `defaultLanguage` language. You can also specify additional component to be rendered on redirection page by adding `redirectComponent` option.
 
 
 ## Plugin Options
@@ -138,7 +138,7 @@ Option | Type | Description
 path | string | language JSON resource path
 languages | string[] | supported language keys
 defaultLanguage | string | default language when visiting `/page` instead of `ko/page`
-redirect | boolean | if the value is `true`, `/` or `/page-2` will be redirected to the user's preferred language router. e.g) `/ko` or `/ko/page-2`. Otherwise, the pages will render `defaultLangugage` language.
+redirect | boolean | if the value is `true`, `/` or `/page-2` will be redirected to the user's preferred language router. e.g) `/ko` or `/ko/page-2`. Otherwise, the pages will render `defaultLanguage` language.
 redirectComponent | string (optional) | additional component file path to be rendered on with a redirection component for SEO.
 
 
