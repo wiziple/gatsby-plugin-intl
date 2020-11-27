@@ -3,7 +3,7 @@ import browserLang from "browser-lang"
 import { withPrefix } from "gatsby"
 import { IntlProvider } from "react-intl"
 import { IntlContextProvider } from "./intl-context"
-import { polyfillIntl } from "./polyfill"
+import { polyfillIntl } from "./polyfillIntl"
 const { getRoutePrefix, getLanguageOption } = require("./route-prefix")
 
 export const preferDefault = m => (m && m.default) || m

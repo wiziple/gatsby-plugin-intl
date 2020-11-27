@@ -2,10 +2,10 @@ import React from "react"
 import { render } from "@testing-library/react"
 import { IntlProvider } from "react-intl"
 import { withIntlProvider } from "../src/wrap-page"
-import { polyfillIntl } from "../src/polyfill"
+import { polyfillIntl } from "../src/polyfillIntl"
 import { IntlContextProvider } from "../src/intl-context"
 
-jest.mock("../src/polyfill")
+jest.mock("../src/polyfillIntl")
 
 jest.mock("react-intl", () => ({
   __esModule: true,
