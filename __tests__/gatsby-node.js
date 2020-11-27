@@ -4,9 +4,9 @@ const webpack = require("webpack")
 const { onCreatePage, onCreateWebpackConfig } = require(`../src/gatsby-node`)
 const { flattenMessages } = require(`../src/flattenMessages`)
 const {
-  getLanguage,
+  getLocale,
   getRoutePrefix,
-  getLanguages,
+  getLocaleList,
   getLanguageOption,
 } = require("../src/route-prefix")
 
@@ -23,11 +23,11 @@ const mocks = {
   },
 }
 
-describe("getLanguage()", () => {
+describe("getLocale()", () => {
   describe("when language is a string", () => {
     it("returns a string", () => {
       const language = "en"
-      const locale = getLanguage(language)
+      const locale = getLocale(language)
 
       expect(locale).toEqual("en")
     })
@@ -39,7 +39,7 @@ describe("getLanguage()", () => {
         locale: "en",
         prefix: "english",
       }
-      const locale = getLanguage(language)
+      const locale = getLocale(language)
 
       expect(locale).toEqual("en")
     })
@@ -69,11 +69,11 @@ describe("getRoutePrefix()", () => {
   })
 })
 
-describe("getLanguages()", () => {
+describe("getLocaleList()", () => {
   describe("when languages are a mix of strings and objects", () => {
     it("returns an array of locale names", () => {
       const languageOptions = ["en", { locale: "es", prefix: "spanish" }]
-      const locales = getLanguages(languageOptions)
+      const locales = getLocaleList(languageOptions)
 
       expect(locales).toEqual(["en", "es"])
     })
