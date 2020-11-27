@@ -1,11 +1,8 @@
 const fs = require(`fs`)
 const webpack = require("webpack")
 
-const {
-  flattenMessages,
-  onCreatePage,
-  onCreateWebpackConfig,
-} = require(`../src/gatsby-node`)
+const { onCreatePage, onCreateWebpackConfig } = require(`../src/gatsby-node`)
+const { flattenMessages } = require(`../src/flattenMessages`)
 const {
   getLanguage,
   getRoutePrefix,
