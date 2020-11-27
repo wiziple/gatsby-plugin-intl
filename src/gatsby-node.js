@@ -39,7 +39,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
   const { createPage, deletePage } = actions
   const {
     path = ".",
-    languages: languageOptions = ["en"],
+    languages = ["en"],
     defaultLanguage = "en",
     redirect = false,
   } = pluginOptions
@@ -67,7 +67,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     const routePrefix = getRoutePrefix(languageOption)
     const messages = getMessages(path, locale)
     const newPath = routed ? `/${routePrefix}${page.path}` : page.path
-    const localeList = getLocaleList(languageOptions)
+    const localeList = getLocaleList(languages)
     return {
       ...page,
       path: newPath,
@@ -78,7 +78,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
         intl: {
           language: locale,
           languages: localeList,
-          languageOptions,
+          languageOptions: languages,
           messages,
           routed,
           originalPath: page.path,
@@ -91,12 +91,12 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
 
   const newPage = generatePage(
     false,
-    getLanguageOption(languageOptions, defaultLanguage)
+    getLanguageOption(languages, defaultLanguage)
   )
   deletePage(page)
   createPage(newPage)
 
-  languageOptions.forEach(language => {
+  languages.forEach(language => {
     const localePage = generatePage(true, language)
     const regexp = new RegExp("/404/?$")
     const routePrefix = getRoutePrefix(language)
