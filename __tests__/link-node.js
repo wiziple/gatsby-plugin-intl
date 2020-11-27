@@ -9,38 +9,42 @@ jest.mock("gatsby", () => ({
   navigate: jest.fn(),
 }))
 
-describe("navigate when window is undefined", () => {
+describe("navigate", () => {
+  describe("when window is undefined", () => {
+    it("returns nothing", () => {
+      const result = navigate("path")
+
+      expect(result).toEqual(undefined)
+    })
+
+    it("does not call Gatsby's navigate", () => {
+      navigate("path")
+
+      expect(gatsbyNavigate).not.toHaveBeenCalled()
+    })
+  })
+
   beforeEach(() => {
     jest.clearAllMocks()
-  })
-
-  it("returns nothing", () => {
-    const result = navigate("path")
-
-    expect(result).toEqual(undefined)
-  })
-
-  it("does not call Gatsby's navigate", () => {
-    navigate("path")
-
-    expect(gatsbyNavigate).not.toHaveBeenCalled()
   })
 })
 
-describe("changeLocale when window is undefined", () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
+describe("changeLocale", () => {
+  describe("when window is undefined", () => {
+    it("returns nothing", () => {
+      const result = changeLocale("es", "/path")
 
-  it("returns nothing", () => {
-    const result = changeLocale("es", "/path")
+      expect(result).toEqual(undefined)
+    })
 
-    expect(result).toEqual(undefined)
-  })
+    it("does not call Gatsby's navigate", () => {
+      navigate("path")
 
-  it("does not call Gatsby's navigate", () => {
-    navigate("path")
+      expect(gatsbyNavigate).not.toHaveBeenCalled()
+    })
 
-    expect(gatsbyNavigate).not.toHaveBeenCalled()
+    beforeEach(() => {
+      jest.clearAllMocks()
+    })
   })
 })

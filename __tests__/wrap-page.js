@@ -1,38 +1,46 @@
 const { preferDefault } = require(`../src/wrap-page`)
 const { polyfillIntl } = require(`../src/polyfill`)
 
-describe("preferDefault", () => {
-  it("returns module when module does not have default export", () => {
-    const module = {
-      foo: "bar",
-    }
-    const value = preferDefault(module)
+describe("preferDefault()", () => {
+  describe("when module does not have default export", () => {
+    it("returns entire module", () => {
+      const module = {
+        foo: "bar",
+      }
+      const value = preferDefault(module)
 
-    expect(value).toEqual(module)
+      expect(value).toEqual(module)
+    })
   })
 
-  it("returns default export", () => {
-    const module = {
-      default: "bar",
-    }
-    const value = preferDefault(module)
+  describe("when module has default export", () => {
+    it("returns default export", () => {
+      const module = {
+        default: "bar",
+      }
+      const value = preferDefault(module)
 
-    expect(value).toEqual("bar")
+      expect(value).toEqual("bar")
+    })
   })
 })
 
-const originalIntl = Intl
+describe("polyfillIntl", () => {
+  const originalIntl = Intl
 
-describe("polyfillIntl when Intl is undefined", () => {
-  beforeAll(() => {
-    Intl = undefined
-  })
-  it("throws error", () => {
-    expect(() => {
-      polyfillIntl("not-a-language")
-    }).toThrow(`Cannot find react-intl/locale-data/not-a-language`)
-  })
-  afterAll(() => {
-    Intl = originalIntl
+  describe("when Intl is undefined", () => {
+    it("throws error", () => {
+      expect(() => {
+        polyfillIntl("not-a-language")
+      }).toThrow(`Cannot find react-intl/locale-data/not-a-language`)
+    })
+
+    beforeAll(() => {
+      Intl = undefined
+    })
+
+    afterAll(() => {
+      Intl = originalIntl
+    })
   })
 })

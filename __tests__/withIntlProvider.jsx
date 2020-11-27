@@ -17,42 +17,44 @@ jest.mock("../src/intl-context", () => ({
   IntlContextProvider: jest.fn(({ children }) => <div>{children}</div>),
 }))
 
-const TestElement = () => <div>Hello</div>
-const intl = { language: "es", defaultLanguage: "es", messages: {} }
+describe("withIntlProvider()", () => {
+  describe("when TestElement is wrapped", () => {
+    const TestElement = () => <div>Hello</div>
+    const intl = { language: "es", defaultLanguage: "es", messages: {} }
 
-describe("withIntlProvider", () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
+    it("polyfills Intl for spanish", () => {
+      render(withIntlProvider(intl)(<TestElement />))
 
-  it("polyfills Intl for spanish", () => {
-    render(withIntlProvider(intl)(<TestElement />))
+      expect(polyfillIntl).toHaveBeenCalledTimes(1)
+      expect(polyfillIntl).toHaveBeenCalledWith("es")
+    })
 
-    expect(polyfillIntl).toHaveBeenCalledTimes(1)
-    expect(polyfillIntl).toHaveBeenCalledWith("es")
-  })
+    it("renders IntlProvider with locale, default locale and messages", () => {
+      render(withIntlProvider(intl)(<TestElement />))
 
-  it("renders IntlProvider with locale, default locale and messages", () => {
-    render(withIntlProvider(intl)(<TestElement />))
+      expect(IntlProvider).toHaveBeenCalledWith(
+        expect.objectContaining({
+          locale: "es",
+          defaultLocale: "es",
+          messages: {},
+        }),
+        {}
+      )
+    })
 
-    expect(IntlProvider).toHaveBeenCalledWith(
-      expect.objectContaining({
-        locale: "es",
-        defaultLocale: "es",
-        messages: {},
-      }),
-      {}
-    )
-  })
+    it("renders IntlContextProvider with intl object as the value", () => {
+      render(withIntlProvider(intl)(<TestElement />))
 
-  it("renders IntlContextProvider with intl object as the value", () => {
-    render(withIntlProvider(intl)(<TestElement />))
+      expect(IntlContextProvider).toHaveBeenCalledWith(
+        expect.objectContaining({
+          value: intl,
+        }),
+        {}
+      )
+    })
 
-    expect(IntlContextProvider).toHaveBeenCalledWith(
-      expect.objectContaining({
-        value: intl,
-      }),
-      {}
-    )
+    beforeEach(() => {
+      jest.clearAllMocks()
+    })
   })
 })
