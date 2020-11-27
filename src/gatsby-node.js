@@ -24,12 +24,16 @@ function flattenMessages(nestedMessages, prefix = "") {
 exports.flattenMessages = flattenMessages
 
 exports.onCreateWebpackConfig = ({ actions, plugins }, pluginOptions) => {
-  const { redirectComponent = null, languages, defaultLanguage } = pluginOptions
-  const locales = getLanguages(languages)
-  if (!locales.includes(defaultLanguage)) {
-    locales.push(defaultLanguage)
+  const {
+    redirectComponent = null,
+    languages: languageOptions,
+    defaultLanguage,
+  } = pluginOptions
+  const languages = getLanguages(languageOptions)
+  if (!languages.includes(defaultLanguage)) {
+    languages.push(defaultLanguage)
   }
-  const regex = new RegExp(locales.map(l => l.split("-")[0]).join("|"))
+  const regex = new RegExp(languages.map(l => l.split("-")[0]).join("|"))
   actions.setWebpackConfig({
     plugins: [
       plugins.define({
@@ -55,7 +59,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
   const { createPage, deletePage } = actions
   const {
     path = ".",
-    languages = ["en"],
+    languages: languageOptions = ["en"],
     defaultLanguage = "en",
     redirect = false,
   } = pluginOptions
@@ -78,23 +82,23 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     }
   }
 
-  const generatePage = (routed, language) => {
-    const locale = getLanguage(language)
-    const routePrefix = getRoutePrefix(language)
-    const messages = getMessages(path, locale)
+  const generatePage = (routed, languageOption) => {
+    const language = getLanguage(languageOption)
+    const routePrefix = getRoutePrefix(languageOption)
+    const messages = getMessages(path, language)
     const newPath = routed ? `/${routePrefix}${page.path}` : page.path
-    const locales = getLanguages(languages)
+    const languages = getLanguages(languageOptions)
     return {
       ...page,
       path: newPath,
       context: {
         ...page.context,
-        language: locale,
+        language: language,
         prefix: routed ? routePrefix : "",
         intl: {
-          language: locale,
-          languages: locales,
-          languageOptions: languages,
+          language,
+          languages,
+          languageOptions,
           messages,
           routed,
           originalPath: page.path,
@@ -107,12 +111,12 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
 
   const newPage = generatePage(
     false,
-    getLanguageOption(languages, defaultLanguage)
+    getLanguageOption(languageOptions, defaultLanguage)
   )
   deletePage(page)
   createPage(newPage)
 
-  languages.forEach(language => {
+  languageOptions.forEach(language => {
     const localePage = generatePage(true, language)
     const regexp = new RegExp("/404/?$")
     const routePrefix = getRoutePrefix(language)
