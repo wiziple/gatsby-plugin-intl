@@ -20,6 +20,7 @@ Demo: [http://gatsby-starter-default-intl.netlify.com](http://gatsby-starter-def
 
 Source: [https://github.com/wiziple/gatsby-plugin-intl/tree/master/examples/gatsby-starter-default-intl](https://github.com/wiziple/gatsby-plugin-intl/tree/master/examples/gatsby-starter-default-intl)
 
+
 ## Showcase
 
 - [https://picpick.app](https://picpick.app)
@@ -31,7 +32,7 @@ Source: [https://github.com/wiziple/gatsby-plugin-intl/tree/master/examples/gats
 - [https://ethereum.org](https://ethereum.org/) [(Source)](https://github.com/ethereum/ethereum-org-website)
 - [https://marscollective.co](https://marscollective.co/) [(Source)](https://github.com/marscollective/marscollective.co)
 
-_Feel free to send us PR to add your project._
+*Feel free to send us PR to add your project.*
 
 ## How to use
 
@@ -64,11 +65,12 @@ plugins: [
 
 For example,
 
-| language resource file                                                                                                              | language |
-| ----------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| [src/intl/en.json](https://github.com/wiziple/gatsby-plugin-intl/blob/master/examples/gatsby-starter-default-intl/src/intl/en.json) | English  |
-| [src/intl/ko.json](https://github.com/wiziple/gatsby-plugin-intl/blob/master/examples/gatsby-starter-default-intl/src/intl/ko.json) | Korean   |
-| [src/intl/de.json](https://github.com/wiziple/gatsby-plugin-intl/blob/master/examples/gatsby-starter-default-intl/src/intl/de.json) | German   |
+| language resource file | language |
+| --- | --- |
+| [src/intl/en.json](https://github.com/wiziple/gatsby-plugin-intl/blob/master/examples/gatsby-starter-default-intl/src/intl/en.json) | English |
+| [src/intl/ko.json](https://github.com/wiziple/gatsby-plugin-intl/blob/master/examples/gatsby-starter-default-intl/src/intl/ko.json) | Korean |
+| [src/intl/de.json](https://github.com/wiziple/gatsby-plugin-intl/blob/master/examples/gatsby-starter-default-intl/src/intl/de.json) | German |
+
 
 ### Change your components
 
@@ -81,7 +83,9 @@ import { injectIntl, Link, FormattedMessage } from "gatsby-plugin-intl"
 const IndexPage = ({ intl }) => {
   return (
     <Layout>
-      <SEO title={intl.formatMessage({ id: "title" })} />
+      <SEO
+        title={intl.formatMessage({ id: "title" })}
+      />
       <Link to="/page-2/">
         {intl.formatMessage({ id: "go_page2" })}
         {/* OR <FormattedMessage id="go_page2" /> */}
@@ -91,9 +95,7 @@ const IndexPage = ({ intl }) => {
 }
 export default injectIntl(IndexPage)
 ```
-
 Or you can use the new `useIntl` hook.
-
 ```jsx
 import React from "react"
 import { useIntl, Link, FormattedMessage } from "gatsby-plugin-intl"
@@ -102,7 +104,9 @@ const IndexPage = () => {
   const intl = useIntl()
   return (
     <Layout>
-      <SEO title={intl.formatMessage({ id: "title" })} />
+      <SEO
+        title={intl.formatMessage({ id: "title" })}
+      />
       <Link to="/page-2/">
         {intl.formatMessage({ id: "go_page2" })}
         {/* OR <FormattedMessage id="go_page2" /> */}
@@ -113,28 +117,31 @@ const IndexPage = () => {
 export default IndexPage
 ```
 
+
 ## How It Works
 
 Let's say you have two pages (`index.js` and `page-2.js`) in your `pages` directory. The plugin will create static pages for every language.
 
-| file                | English        | Korean         | German         | Default\* |
-| ------------------- | -------------- | -------------- | -------------- | --------- |
-| src/pages/index.js  | /**en**        | /**ko**        | /**de**        | /         |
-| src/pages/page-2.js | /**en**/page-2 | /**ko**/page-2 | /**de**/page-2 | /page-2   |
+file | English | Korean | German | Default*
+-- | -- | -- | -- | --
+src/pages/index.js | /**en** | /**ko** | /**de** | /
+src/pages/page-2.js | /**en**/page-2 | /**ko**/page-2 | /**de**/page-2 | /page-2
 
 **Default Pages and Redirection**
 
 If redirect option is `true`, `/` or `/page-2` will be redirected to the user's preferred language router. e.g) `/ko` or `/ko/page-2`. Otherwise, the pages will render `defaultLangugage` language. You can also specify additional component to be rendered on redirection page by adding `redirectComponent` option.
 
+
 ## Plugin Options
 
-| Option            | Type              | Description                                                                                                                                                                                    |
-| ----------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| path              | string            | language JSON resource path                                                                                                                                                                    |
-| languages         | string[]          | supported language keys                                                                                                                                                                        |
-| defaultLanguage   | string            | default language when visiting `/page` instead of `ko/page`                                                                                                                                    |
-| redirect          | boolean           | if the value is `true`, `/` or `/page-2` will be redirected to the user's preferred language router. e.g) `/ko` or `/ko/page-2`. Otherwise, the pages will render `defaultLangugage` language. |
-| redirectComponent | string (optional) | additional component file path to be rendered on with a redirection component for SEO.                                                                                                         |
+Option | Type | Description
+-- | -- | --
+path | string | language JSON resource path
+languages | string[] | supported language keys
+defaultLanguage | string | default language when visiting `/page` instead of `ko/page`
+redirect | boolean | if the value is `true`, `/` or `/page-2` will be redirected to the user's preferred language router. e.g) `/ko` or `/ko/page-2`. Otherwise, the pages will render `defaultLangugage` language.
+redirectComponent | string (optional) | additional component file path to be rendered on with a redirection component for SEO.
+
 
 ## Components
 
@@ -142,15 +149,16 @@ To make it easy to handle i18n with multi-language url routes, the plugin provid
 
 To use it, simply import it from `gatsby-plugin-intl`.
 
-| Component           | Type      | Description                                                                                                                                                                  |
-| ------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Link                | component | This is a wrapper around @gatsby’s Link component that adds useful enhancements for multi-language routes. All props are passed through to @gatsby’s Link component.         |
-| navigate            | function  | This is a wrapper around @gatsby’s navigate function that adds useful enhancements for multi-language routes. All options are passed through to @gatsby’s navigate function. |
-| changeLocale        | function  | A function that replaces your locale. `changeLocale(locale, to = null)`                                                                                                      |
-| IntlContextConsumer | component | A context component to get plugin configuration on the component level.                                                                                                      |
-| injectIntl          | component | https://github.com/yahoo/react-intl/wiki/API#injection-api                                                                                                                   |
-| FormattedMessage    | component | https://github.com/yahoo/react-intl/wiki/Components#string-formatting-components                                                                                             |
-| and more...         |           | https://github.com/yahoo/react-intl/wiki/Components                                                                                                                          |
+Component | Type | Description
+-- | -- | --
+Link | component | This is a wrapper around @gatsby’s Link component that adds useful enhancements for multi-language routes. All props are passed through to @gatsby’s Link component.
+navigate | function | This is a wrapper around @gatsby’s navigate function that adds useful enhancements for multi-language routes. All options are passed through to @gatsby’s navigate function.
+changeLocale | function | A function that replaces your locale. `changeLocale(locale, to = null)`
+IntlContextConsumer | component | A context component to get plugin configuration on the component level.
+injectIntl | component | https://github.com/yahoo/react-intl/wiki/API#injection-api
+FormattedMessage | component | https://github.com/yahoo/react-intl/wiki/Components#string-formatting-components
+and more... | | https://github.com/yahoo/react-intl/wiki/Components
+
 
 ## License
 
