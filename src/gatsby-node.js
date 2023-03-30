@@ -20,7 +20,7 @@ exports.onCreateWebpackConfig = ({ actions, plugins }, pluginOptions) => {
   if (!languages.includes(defaultLanguage)) {
     languages.push(defaultLanguage)
   }
-  const regex = new RegExp(languages.map(l => l.split("-")[0]).join("|"))
+  const regex = new RegExp(languages.map((l) => l.split("-")[0]).join("|"))
   actions.setWebpackConfig({
     plugins: [
       plugins.define({
@@ -95,7 +95,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
   deletePage(page)
   createPage(newPage)
 
-  languages.forEach(language => {
+  languages.forEach((language) => {
     const localePage = generatePage(true, language)
     const regexp = new RegExp("/404/?$")
     if (regexp.test(localePage.path)) {

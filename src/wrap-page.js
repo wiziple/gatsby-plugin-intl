@@ -4,9 +4,9 @@ import { withPrefix } from "gatsby"
 import { IntlProvider } from "react-intl"
 import { IntlContextProvider } from "./intl-context"
 
-const preferDefault = m => (m && m.default) || m
+const preferDefault = (m) => (m && m.default) || m
 
-const polyfillIntl = language => {
+const polyfillIntl = (language) => {
   const locale = language.split("-")[0]
   try {
     if (!Intl.PluralRules) {
@@ -23,7 +23,7 @@ const polyfillIntl = language => {
   }
 }
 
-const withIntlProvider = (intl) => children => {
+const withIntlProvider = (intl) => (children) => {
   polyfillIntl(intl.language)
   return (
     <IntlProvider

@@ -3,29 +3,31 @@ import PropTypes from "prop-types"
 import { Link as GatsbyLink, navigate as gatsbyNavigate } from "gatsby"
 import { IntlContextConsumer } from "./intl-context"
 
-const Link = React.forwardRef(({ to, language, children, onClick, ...rest }, ref) => (
-  <IntlContextConsumer>
-    {intl => {
-      const languageLink = language || intl.language
-      const link = intl.routed || language ? `/${languageLink}${to}` : `${to}`
+const Link = React.forwardRef(
+  ({ to, language, children, onClick, ...rest }, ref) => (
+    <IntlContextConsumer>
+      {(intl) => {
+        const languageLink = language || intl.language
+        const link = intl.routed || language ? `/${languageLink}${to}` : `${to}`
 
-      const handleClick = e => {
-        if (language) {
-          localStorage.setItem("gatsby-intl-language", language)
+        const handleClick = (e) => {
+          if (language) {
+            localStorage.setItem("gatsby-intl-language", language)
+          }
+          if (onClick) {
+            onClick(e)
+          }
         }
-        if (onClick) {
-          onClick(e)
-        }
-      }
 
-      return (
-        <GatsbyLink {...rest} to={link} onClick={handleClick} ref={ref}>
-          {children}
-        </GatsbyLink>
-      )
-    }}
-  </IntlContextConsumer>
-))
+        return (
+          <GatsbyLink {...rest} to={link} onClick={handleClick} ref={ref}>
+            {children}
+          </GatsbyLink>
+        )
+      }}
+    </IntlContextConsumer>
+  )
+)
 
 Link.propTypes = {
   children: PropTypes.node.isRequired,
@@ -55,7 +57,7 @@ export const changeLocale = (language, to) => {
   }
   const { routed } = window.___gatsbyIntl
 
-  const removePrefix = pathname => {
+  const removePrefix = (pathname) => {
     const base =
       typeof __BASE_PATH__ !== `undefined` ? __BASE_PATH__ : __PATH_PREFIX__
     if (base && pathname.indexOf(base) === 0) {
@@ -64,7 +66,7 @@ export const changeLocale = (language, to) => {
     return pathname
   }
 
-  const removeLocalePart = pathname => {
+  const removeLocalePart = (pathname) => {
     if (!routed) {
       return pathname
     }

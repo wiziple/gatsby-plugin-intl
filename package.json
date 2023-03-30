@@ -1,30 +1,27 @@
 {
   "name": "gatsby-plugin-intl",
   "description": "Gatsby plugin to add react-intl onto a site",
-  "version": "0.3.3",
+  "version": "5.8.1",
   "author": "Daewoong Moon <wiziple@gmail.com>",
   "bugs": {
     "url": "https://github.com/wiziple/gatsby-plugin-intl"
   },
   "dependencies": {
-    "@babel/runtime": "^7.8.4",
-    "@formatjs/intl-pluralrules": "^1.5.2",
-    "@formatjs/intl-relativetimeformat": "^4.5.9",
-    "browser-lang": "^0.1.0",
+    "@babel/runtime": "^7.21.0",
+    "@formatjs/intl-pluralrules": "^5.1.10",
+    "@formatjs/intl-relativetimeformat": "^11.1.10",
+    "browser-lang": "^0.2.1",
     "intl": "^1.2.5",
-    "react-intl": "^3.12.0"
+    "react-intl": "^6.3.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.8.4",
-    "babel-preset-gatsby-package": "^0.2.16",
-    "cross-env": "^7.0.0",
-    "jest": "^25.1.0",
-    "prettier": "^1.19.1",
-    "rimraf": "^3.0.2"
-  },
-  "peerDependencies": {
-    "gatsby": "^3.0.0"
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.3",
+    "babel-preset-gatsby-package": "^3.8.0",
+    "cross-env": "^7.0.3",
+    "jest": "^25.5.4",
+    "prettier": "^2.8.7",
+    "rimraf": "^4.4.1"
   },
   "homepage": "https://github.com/wiziple/gatsby-plugin-intl",
   "keywords": [
@@ -42,7 +39,7 @@
     "build": "babel src --out-dir . --ignore **/__tests__",
     "prepare": "cross-env NODE_ENV=production npm run build",
     "watch": "babel -w src --out-dir . --ignore **/__tests__",
-    "format": "prettier --write {src,__tests__}/**/*.{js,jsx}",
+    "format": "prettier --write {src,__tests__}/**/*.js",
     "test": "jest",
     "clean": "rimraf *.js"
   }
