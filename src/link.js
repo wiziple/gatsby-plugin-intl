@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import { Link as GatsbyLink, navigate as gatsbyNavigate } from "gatsby"
 import { IntlContextConsumer } from "./intl-context"
 
-const Link = ({ to, language, children, onClick, ...rest }) => (
+const Link = React.forwardRef(({ to, language, children, onClick, ...rest }, ref) => (
   <IntlContextConsumer>
     {intl => {
       const languageLink = language || intl.language
@@ -19,13 +19,13 @@ const Link = ({ to, language, children, onClick, ...rest }) => (
       }
 
       return (
-        <GatsbyLink {...rest} to={link} onClick={handleClick}>
+        <GatsbyLink {...rest} to={link} onClick={handleClick} ref={ref}>
           {children}
         </GatsbyLink>
       )
     }}
   </IntlContextConsumer>
-)
+))
 
 Link.propTypes = {
   children: PropTypes.node.isRequired,
