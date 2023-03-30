@@ -74,6 +74,10 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     const newPath = routed ? `/${language}${page.path}` : page.path
     return {
       ...page,
+      matchPath:
+        !page.matchPath && !routed && page.path.indexOf(":") >= 0
+          ? page.path
+          : page.matchPath,
       path: newPath,
       context: {
         ...page.context,
