@@ -23,6 +23,9 @@
     "prettier": "^1.19.1",
     "rimraf": "^3.0.2"
   },
+  "peerDependencies": {
+    "gatsby": "^3.0.0"
+  },
   "homepage": "https://github.com/wiziple/gatsby-plugin-intl",
   "keywords": [
     "gatsby",
@@ -34,9 +37,6 @@
   ],
   "license": "MIT",
   "main": "index.js",
-  "peerDependencies": {
-    "gatsby": "^2.0.0"
-  },
   "repository": "https://github.com/wiziple/gatsby-plugin-intl",
   "scripts": {
     "build": "babel src --out-dir . --ignore **/__tests__",
