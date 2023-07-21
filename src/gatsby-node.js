@@ -91,6 +91,19 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     }
   }
 
+  // get first dir name
+  const [_, pageDir] = page.path.match(/^\/([^\/]*)/) || []
+
+  // if it matches an intl language
+  // this page will be opted out of additional page generation
+  if (languages.includes(pageDir)) {
+    // recreate the page as is but with correct language context
+    const newPage = generatePage(false, pageDir)
+    deletePage(page)
+    createPage(newPage)
+    return
+  }
+
   const newPage = generatePage(false, defaultLanguage)
   deletePage(page)
   createPage(newPage)
