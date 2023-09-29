@@ -91,11 +91,19 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     }
   }
 
-  const newPage = generatePage(false, defaultLanguage)
+  const options = page.context.gatsbyPluginIntl || {}
+  const onlyLanguages = options.onlyLanguages || []
+
   deletePage(page)
-  createPage(newPage)
+
+  if (onlyLanguages.length === 0 || onlyLanguages.includes(defaultLanguage)) {
+    const newPage = generatePage(false, defaultLanguage)
+    createPage(newPage)
+  }
 
   languages.forEach((language) => {
+    if (onlyLanguages.length > 0 && !onlyLanguages.includes(language))
+      return;
     const localePage = generatePage(true, language)
     const regexp = new RegExp("/404/?$")
     if (regexp.test(localePage.path)) {
